@@ -1,12 +1,6 @@
 name: 'notes_app'
 
 services:
-  # notesapp.api:
-  #   image: ${DOCKER_REGISTRY-}notesappapi
-  #   build:
-  #     context: .
-  #     dockerfile: backend/NotesApp.Api/Dockerfile
-
   postgres_db:
     container_name: pgsql_notesDb
     image: postgres:latest
@@ -15,9 +9,4 @@ services:
       POSTGRES_PASSWORD: 32167
       POSTGRES_DB: NotesAppDb
     ports:
-      - '5432:5432'
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
-volumes:
-  pgdata:
+      - '5433:5432'
