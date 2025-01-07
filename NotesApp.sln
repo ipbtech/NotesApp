@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesApp.Domain", "backend\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesApp.DAL", "backend\NotesApp.DAL\NotesApp.DAL.csproj", "{B9D5887C-417B-4BBC-99E2-1B060F7CF4BB}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9FB5E2F4-A23F-4A54-80D3-1D40B93E5EB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{B9D5887C-417B-4BBC-99E2-1B060F7CF4BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9D5887C-417B-4BBC-99E2-1B060F7CF4BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9D5887C-417B-4BBC-99E2-1B060F7CF4BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FB5E2F4-A23F-4A54-80D3-1D40B93E5EB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FB5E2F4-A23F-4A54-80D3-1D40B93E5EB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FB5E2F4-A23F-4A54-80D3-1D40B93E5EB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FB5E2F4-A23F-4A54-80D3-1D40B93E5EB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
