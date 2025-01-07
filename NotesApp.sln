@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{5E1DB72D-6C15-4427-AB7C-C85941A93701}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{6B2BA9F5-DEAA-4B72-B3EB-1D963B6E63F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{1DF6CD35-160B-4A2F-9DC0-1B8CFFEEE6A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D3370B78-5355-4807-8932-FCB63473FA89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesApp.Api", "backend\NotesApp.Api\NotesApp.Api.csproj", "{33539C2A-482A-43B3-8869-653C85A53AF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesApp.Domain", "backend\NotesApp.Domain\NotesApp.Domain.csproj", "{AA515943-B323-4C56-AC2F-680B3DDA5614}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33539C2A-482A-43B3-8869-653C85A53AF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33539C2A-482A-43B3-8869-653C85A53AF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33539C2A-482A-43B3-8869-653C85A53AF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33539C2A-482A-43B3-8869-653C85A53AF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA515943-B323-4C56-AC2F-680B3DDA5614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA515943-B323-4C56-AC2F-680B3DDA5614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA515943-B323-4C56-AC2F-680B3DDA5614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA515943-B323-4C56-AC2F-680B3DDA5614}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{33539C2A-482A-43B3-8869-653C85A53AF8} = {1DF6CD35-160B-4A2F-9DC0-1B8CFFEEE6A5}
+		{AA515943-B323-4C56-AC2F-680B3DDA5614} = {5E1DB72D-6C15-4427-AB7C-C85941A93701}
+	EndGlobalSection
+EndGlobal
