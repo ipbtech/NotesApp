@@ -1,6 +1,6 @@
-﻿using NotesApp.Domain.Entity.Base;
+﻿using NotesApp.Domain.Entities.Base;
 
-namespace NotesApp.Domain.Entity
+namespace NotesApp.Domain.Entities
 {
     public class Attachment : BaseFile
     {

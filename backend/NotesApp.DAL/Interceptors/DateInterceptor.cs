@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using NotesApp.Domain.Entity.Base;
+using NotesApp.Domain.Entities.Base;
 
-namespace NotesApp.DAL.Interceptor
+namespace NotesApp.DAL.Interceptors
 {
     public class DateInterceptor : SaveChangesInterceptor
     {

@@ -1,6 +1,6 @@
-﻿using NotesApp.Domain.Entity.Base;
+﻿using NotesApp.Domain.Entities.Base;
 
-namespace NotesApp.Domain.Interfaces
+namespace NotesApp.Domain.Interfaces.Repositories
 {
     public interface IRepository<T> where T : BaseEntity
     {

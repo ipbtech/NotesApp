@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NotesApp.DAL.Interceptor;
+using NotesApp.DAL.Interceptors;
 using System.Reflection;
 
 namespace NotesApp.DAL

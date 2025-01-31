@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NotesApp.Domain.Entity;
+using NotesApp.Domain.Entities;
 
-namespace NotesApp.DAL.Config
+namespace NotesApp.DAL.Configs
 {
     public class NoteDbConfig : IEntityTypeConfiguration<Note>
     {

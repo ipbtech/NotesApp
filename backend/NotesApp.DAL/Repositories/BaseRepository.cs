@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NotesApp.Domain.Entity.Base;
-using NotesApp.Domain.Interfaces;
+using NotesApp.Domain.Entities.Base;
+using NotesApp.Domain.Interfaces.Repositories;
 
-namespace NotesApp.DAL.Repository
+namespace NotesApp.DAL.Repositories
 {
     public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {

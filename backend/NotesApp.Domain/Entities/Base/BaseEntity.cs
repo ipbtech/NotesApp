@@ -1,4 +1,4 @@
-﻿namespace NotesApp.Domain.Entity.Base
+﻿namespace NotesApp.Domain.Entities.Base
 {
     public abstract class BaseEntity
     {

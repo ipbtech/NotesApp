@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NotesApp.DAL.Interceptor;
-using NotesApp.DAL.Repository;
-using NotesApp.Domain.Entity;
-using NotesApp.Domain.Interfaces;
+using NotesApp.DAL.Interceptors;
+using NotesApp.DAL.Repositories;
+using NotesApp.Domain.Entities;
+using NotesApp.Domain.Interfaces.Repositories;
 
 namespace NotesApp.DAL
 {
