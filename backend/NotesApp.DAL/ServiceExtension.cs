@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NotesApp.DAL.Repositories;
-using NotesApp.Domain.Contracts.Repositories;
+using NotesApp.Domain.Interfaces.Repositories;
 
 namespace NotesApp.DAL
 {
