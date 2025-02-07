@@ -1,7 +1,7 @@
 ﻿using Ardalis.Specification;
 using NotesApp.Domain.Entities.Base;
 
-namespace NotesApp.DAL.Specifications
+namespace NotesApp.Application.Specifications
 {
     public class ByIdSpec<TEntity> : Specification<TEntity> where TEntity : BaseEntity
     {
