@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using NotesApp.DAL.Interceptors;
 using NotesApp.DAL.Repositories;
 using NotesApp.Domain.Entities;
-using NotesApp.Domain.Interfaces.Repositories;
 
 namespace NotesApp.DAL
 {
@@ -20,10 +19,10 @@ namespace NotesApp.DAL
 
         private static void AddRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IRepository<User>, BaseRepository<User>>();
-            services.AddScoped<IRepository<Avatar>, BaseRepository<Avatar>>();
-            services.AddScoped<IRepository<Note>, BaseRepository<Note>>();
-            services.AddScoped<IRepository<Attachment>, BaseRepository<Attachment>>();
+            //services.AddScoped<IRepository<User>, BaseRepository<User>>();
+            //services.AddScoped<IRepository<Avatar>, BaseRepository<Avatar>>();
+            //services.AddScoped<IRepository<Note>, BaseRepository<Note>>();
+            //services.AddScoped<IRepository<Attachment>, BaseRepository<Attachment>>();
         }
     }
 }

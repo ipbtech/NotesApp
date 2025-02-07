@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NotesApp.Domain.Entities.Base;
-using NotesApp.Domain.Interfaces.Repositories;
 
 namespace NotesApp.DAL.Repositories
 {
-    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
+    public class BaseRepository<TEntity> where TEntity : BaseEntity
     {
         protected readonly NotesAppDbContext _dbContext;
         protected readonly DbSet<TEntity> _dbSet;

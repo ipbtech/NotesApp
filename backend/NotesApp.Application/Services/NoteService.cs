@@ -1,19 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NotesApp.Domain.Dtos;
-using NotesApp.Domain.Entities;
-using NotesApp.Domain.Interfaces.Repositories;
-using NotesApp.Domain.Interfaces.Services;
+﻿using NotesApp.Domain.Interfaces.Services;
 
 namespace NotesApp.Application.Services
 {
     public class NoteService : INoteService
     {
-        private readonly IRepository<Note> _notesRepos;
-        
-        public NoteService(IRepository<Note> notesRepos)
-        {
-            _notesRepos = notesRepos;
-        }
+
 
 
         public async Task GetNotesAsync(int? userId = null)
