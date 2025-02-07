@@ -13,7 +13,7 @@ namespace NotesApp.DAL
         public static void AddDataAccess(this IServiceCollection services, IConfiguration configuration)
         {
             var connStr = configuration.GetConnectionString("DockerDefault");
-            services.AddDbContext<AppDbContext>(opt => opt.UseNpgsql(connStr));
+            services.AddDbContext<NotesAppDbContext>(opt => opt.UseNpgsql(connStr));
             services.AddSingleton<DateInterceptor>();
             services.AddRepositories();
         }

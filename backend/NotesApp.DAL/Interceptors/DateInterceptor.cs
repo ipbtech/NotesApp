@@ -16,11 +16,19 @@ namespace NotesApp.DAL.Interceptors
             foreach (var entry in entries)
             {
                 if (entry.State == EntityState.Added)
+                {
                     entry.Property(e => e.CreatedAtUtc).CurrentValue = DateTime.UtcNow;
+                    entry.Property(e => e.CreatedBy).CurrentValue = default;
+
+                    entry.Property(e => e.UpdatedAtUtc).CurrentValue = DateTime.UtcNow;
+                    entry.Property(e => e.UpdatedBy).CurrentValue = default;
+                }
 
                 if (entry.State == EntityState.Modified)
-                    entry.Property(e => e.LastModifiedAtUtc).CurrentValue = DateTime.UtcNow;
-
+                {
+                    entry.Property(e => e.UpdatedAtUtc).CurrentValue = DateTime.UtcNow;
+                    entry.Property(e => e.UpdatedBy).CurrentValue = default;
+                }
                 //TODO Created and modified by
             }
             return base.SavingChanges(eventData, result);

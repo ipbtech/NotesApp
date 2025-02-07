@@ -4,9 +4,9 @@ using System.Reflection;
 
 namespace NotesApp.DAL
 {
-    public class AppDbContext : DbContext
+    public class NotesAppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        public NotesAppDbContext(DbContextOptions<NotesAppDbContext> options) : base(options)
         {
             if (Database.GetPendingMigrations().Any())
                 Database.Migrate();
@@ -20,6 +20,8 @@ namespace NotesApp.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            //TODO indexes
         }
     }
 }

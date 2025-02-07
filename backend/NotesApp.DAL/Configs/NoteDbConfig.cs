@@ -11,11 +11,13 @@ namespace NotesApp.DAL.Configs
             builder.Property(e => e.Id).ValueGeneratedOnAdd().IsRequired();
             builder.Property(e => e.Name).HasMaxLength(255).IsRequired();
 
-            builder.HasOne(n => n.User).WithMany(u => u.PersonalNotes)
-                .HasPrincipalKey(u => u.Id).HasForeignKey(n => n.UserId)
+            builder.HasMany(e => e.Attachments).WithOne(e => e.Note)
+                .HasForeignKey(e => e.NoteId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany(n => n.AddedUsers).WithMany(u => u.AllowedNotes);
+            builder.HasOne(e => e.Tag).WithMany(e => e.Notes)
+                .HasForeignKey(e => e.TagId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

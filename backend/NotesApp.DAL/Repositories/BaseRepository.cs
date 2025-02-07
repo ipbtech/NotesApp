@@ -6,10 +6,10 @@ namespace NotesApp.DAL.Repositories
 {
     public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
-        protected readonly AppDbContext _dbContext;
+        protected readonly NotesAppDbContext _dbContext;
         protected readonly DbSet<TEntity> _dbSet;
 
-        public BaseRepository(AppDbContext dbContext) 
+        public BaseRepository(NotesAppDbContext dbContext) 
         {
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<TEntity>();

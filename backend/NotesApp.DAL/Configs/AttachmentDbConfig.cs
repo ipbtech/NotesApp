@@ -11,10 +11,6 @@ namespace NotesApp.DAL.Configs
             builder.Property(e => e.Id).ValueGeneratedOnAdd().IsRequired();
             builder.Property(e => e.Name).HasMaxLength(255).IsRequired();
             builder.Property(e => e.FileExtension).HasMaxLength(10).IsRequired();
-
-            builder.HasOne(a => a.Note).WithMany(n => n.Attachments)
-                .HasPrincipalKey(n => n.Id).HasForeignKey(a => a.NoteId)
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

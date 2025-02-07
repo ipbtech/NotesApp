@@ -2,9 +2,14 @@
 
 namespace NotesApp.Domain.Entities
 {
-    public class Avatar : BaseFile
+    public class Tag : BaseEntity
     {
+#nullable disable
+        public string Name { get; set; }
+#nullable enable
+
         public Guid UserId { get; set; }
         public User? User { get; set; }
+        public ICollection<Note> Notes { get; set; } = [];
     }
 }

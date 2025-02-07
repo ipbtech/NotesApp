@@ -4,6 +4,6 @@ namespace NotesApp.Domain.Interfaces.Services
 {
     public interface INoteService
     {
-        public Task<IEnumerable<NoteDto>> GetNotesAsync(int? userId = null);
+        public Task GetNotesAsync(int? userId = null);
     }
 }

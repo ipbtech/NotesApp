@@ -2,11 +2,11 @@
 {
     public abstract class BaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public DateTime CreatedAtUtc { get; set; }
-        public int CreatedBy { get; set; }
-        public DateTime? LastModifiedAtUtc { get; set; }
-        public int LastModifiedBy { get; set; }
+        public Guid CreatedBy { get; set; }
+        public DateTime UpdatedAtUtc { get; set; }
+        public Guid UpdatedBy { get; set; }
     }
 }
