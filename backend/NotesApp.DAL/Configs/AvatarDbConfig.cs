@@ -4,7 +4,7 @@ using NotesApp.Domain.Entities;
 
 namespace NotesApp.DAL.Configs
 {
-    public class AvatarDbConfig : IEntityTypeConfiguration<Avatar>
+    internal class AvatarDbConfig : IEntityTypeConfiguration<Avatar>
     {
         public void Configure(EntityTypeBuilder<Avatar> builder)
         {

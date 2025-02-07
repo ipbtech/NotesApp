@@ -1,24 +1,18 @@
-﻿using NotesApp.Domain.Interfaces.Services;
+﻿using NotesApp.DAL.Specifications;
+using NotesApp.Domain.Contracts.Repositories;
+using NotesApp.Domain.Entities;
 
 namespace NotesApp.Application.Services
 {
-    public class NoteService : INoteService
+    public class NoteService(IRepository<Note> repository)
     {
 
 
 
         public async Task GetNotesAsync(int? userId = null)
         {
-            //IQueryable<Note> query = _notesRepos.GetAll();
-            //if (userId is not null)
-            //    query = query.Where(note => note.UserId == userId);
+            var ents = await repository.ListAsync(new AsNoTrackingSpec<Note>());
 
-            //return await query.Select(note => new NoteDto
-            //{
-            //    Name = note.Name,
-            //    Description = note.Description,
-            //    CreatedDate = note.CreatedAtUtc.ToLongDateString()
-            //}).ToListAsync();
         }
     }
 }

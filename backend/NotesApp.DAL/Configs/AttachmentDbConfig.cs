@@ -4,7 +4,7 @@ using NotesApp.Domain.Entities;
 
 namespace NotesApp.DAL.Configs
 {
-    public class AttachmenDbConfig : IEntityTypeConfiguration<Attachment>
+    internal class AttachmenDbConfig : IEntityTypeConfiguration<Attachment>
     {
         public void Configure(EntityTypeBuilder<Attachment> builder)
         {

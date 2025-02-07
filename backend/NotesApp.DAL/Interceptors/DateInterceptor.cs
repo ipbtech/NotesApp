@@ -4,7 +4,7 @@ using NotesApp.Domain.Entities.Base;
 
 namespace NotesApp.DAL.Interceptors
 {
-    public class DateInterceptor : SaveChangesInterceptor
+    internal class DateInterceptor : SaveChangesInterceptor
     {
         public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
         {

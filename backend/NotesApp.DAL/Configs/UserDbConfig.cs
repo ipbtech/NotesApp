@@ -4,7 +4,7 @@ using NotesApp.Domain.Entities;
 
 namespace NotesApp.DAL.Configs
 {
-    public class UserDbConfig : IEntityTypeConfiguration<User>
+    internal class UserDbConfig : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
