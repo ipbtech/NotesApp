@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using NotesApp.Domain.Entities.Base;
+using NotesApp.Domain.Interfaces.Entities;
 
 namespace NotesApp.DAL
 {
@@ -21,7 +21,7 @@ namespace NotesApp.DAL
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            var entries = ChangeTracker.Entries<BaseEntity>().ToList();
+            var entries = ChangeTracker.Entries<IAuditable>().ToList();
             foreach (var entry in entries)
             {
                 if (entry.State == EntityState.Added)

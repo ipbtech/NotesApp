@@ -1,9 +1,7 @@
-﻿namespace NotesApp.Domain.Entities.Base
+﻿namespace NotesApp.Domain.Interfaces.Entities
 {
-    public abstract class BaseEntity
+    public interface IAuditable
     {
-        public Guid Id { get; set; }
-
         public DateTime CreatedAtUtc { get; set; }
         public Guid CreatedBy { get; set; }
         public DateTime UpdatedAtUtc { get; set; }

@@ -1,12 +1,11 @@
 ﻿using Ardalis.Specification.EntityFrameworkCore;
-using NotesApp.Domain.Entities.Base;
+using NotesApp.Domain.Interfaces.Entities;
 using NotesApp.Domain.Interfaces.Repositories;
 
 namespace NotesApp.DAL.Repositories
 {
-    internal class Repository<TEntity> : RepositoryBase<TEntity>, IRepository<TEntity> where TEntity : BaseEntity
-    {
-        public Repository(NotesAppDbContext dbContext) : base(dbContext)
-        { }
-    }
+    internal class Repository<TEntity>(NotesAppDbContext dbContext) : 
+        RepositoryBase<TEntity>(dbContext), IRepository<TEntity>
+        where TEntity : class, IModelId, IAuditable
+    { }
 }

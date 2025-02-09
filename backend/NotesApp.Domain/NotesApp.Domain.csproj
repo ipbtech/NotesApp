@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Settings\" />
+	<FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-
+	
   <ItemGroup>
     <PackageReference Include="Ardalis.Specification" Version="8.0.0" />
   </ItemGroup>

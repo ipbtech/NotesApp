@@ -1,11 +1,9 @@
-﻿namespace NotesApp.Domain.Entities.Base
+﻿namespace NotesApp.Domain.Interfaces.Entities
 {
-#nullable disable
-    public abstract class BaseFile : BaseEntity
+    public interface IFile
     {
         public string Name { get; set; }
         public string FileExtension { get; set; }
         public byte[] Content { get; set; }
     }
-#nullable enable
 }

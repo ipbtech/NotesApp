@@ -1,8 +1,8 @@
-﻿using NotesApp.Domain.Entities.Base;
+﻿using NotesApp.Domain.Interfaces.Entities;
 
 namespace NotesApp.Domain.Entities
 {
-    public class User : BaseEntity
+    public class User : IModelId, IAuditable
     {
 #nullable disable
         public string Email { get; set; }
@@ -14,5 +14,14 @@ namespace NotesApp.Domain.Entities
         public ICollection<Note> PersonalNotes { get; set; } = [];
         public ICollection<Note> AllowedNotes { get; set; } = [];
         public ICollection<Tag> Tags { get; set; } = [];
+
+        //IModelId impl
+        public Guid Id { get; set; }
+
+        //IAuditable impl
+        public DateTime CreatedAtUtc { get; set; }
+        public Guid CreatedBy { get; set; }
+        public DateTime UpdatedAtUtc { get; set; }
+        public Guid UpdatedBy { get; set; }
     }
 }
