@@ -1,5 +1,11 @@
 ﻿namespace NotesApp.Application.Dtos
 {
-    public record TagGetDto();
-    public record TagCreateOrUpdateDto();
+    public record TagDto(
+        Guid Id,
+        string Name,
+        Guid UserId,
+        DateTime CreatedAtUtc,
+        Guid CreatedBy,
+        DateTime UpdatedAtUtc,
+        Guid UpdatedBy);
 }

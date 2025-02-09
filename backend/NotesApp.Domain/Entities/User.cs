@@ -2,7 +2,7 @@
 
 namespace NotesApp.Domain.Entities
 {
-    public class User : IModelId, IAuditable
+    public class User : IEntityId, IAuditable
     {
 #nullable disable
         public string Email { get; set; }

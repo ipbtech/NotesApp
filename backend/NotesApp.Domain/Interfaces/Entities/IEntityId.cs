@@ -1,6 +1,6 @@
 ﻿namespace NotesApp.Domain.Interfaces.Entities
 {
-    public interface IModelId
+    public interface IEntityId
     {
         public Guid Id { get; set; }
     }

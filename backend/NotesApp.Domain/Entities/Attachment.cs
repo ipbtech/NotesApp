@@ -2,7 +2,7 @@
 
 namespace NotesApp.Domain.Entities
 {
-    public class Attachment : IModelId, IAuditable, IFile
+    public class Attachment : IEntityId, IAuditable, IFile
     {
         public Guid NoteId { get; set; }
         public Note? Note { get; set; }

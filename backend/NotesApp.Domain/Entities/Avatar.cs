@@ -2,7 +2,7 @@
 
 namespace NotesApp.Domain.Entities
 {
-    public class Avatar : IModelId, IAuditable, IFile
+    public class Avatar : IEntityId, IAuditable, IFile
     {
         public Guid UserId { get; set; }
         public User? User { get; set; }

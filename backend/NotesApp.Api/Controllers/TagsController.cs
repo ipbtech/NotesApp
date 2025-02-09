@@ -1,44 +1,64 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
+using NotesApp.Application.Dtos;
+using NotesApp.Domain.Entities;
+using NotesApp.Domain.Interfaces.Mapping;
 using NotesApp.Domain.Interfaces.Services;
 
 namespace NotesApp.Api.Controllers
 {
-    [Route("api/[controller]")]
-    //[Authorize] //TODO
     [ApiController]
+    //[Authorize] //TODO
+    [Route("api/[controller]")]
+    [Produces("application/json")]
+    [Consumes("application/json")]
     public class TagsController(
         ITagService tagService,
+        IMapper<Tag, TagDto> mapper,
         ILogger<TagsController> logger) : ControllerBase
     {
         
         [HttpGet]
-        public ActionResult GetAll([FromQuery] Guid? userId)
+        public async Task<ActionResult<TagDto>> GetAll([FromQuery] Guid? userId)
         {
-            return Ok();
+            var tags = await tagService.GetAllAsync(userId);
+            return Ok(mapper.MapToDto(tags));
         }
 
         [HttpGet("{id:guid}")]
-        public ActionResult GetById([FromRoute, Required] Guid id)
+        public async Task<ActionResult<TagDto>> GetById([FromRoute, Required] Guid id)
         {
-            return Ok();
+            var tag = await tagService.GetByIdAsync(id);
+            if (tag is null)
+                return NotFound();
+
+            return Ok(mapper.MapToDto(tag));
         }
 
         [HttpPost("{tagName}")]
-        public ActionResult Create([FromRoute, Required] string tagName)
+        public async Task<ActionResult> Create([FromRoute, Required] string tagName)
         {
-            return Ok();
+            if (string.IsNullOrEmpty(tagName) || string.IsNullOrWhiteSpace(tagName))
+                return BadRequest();
+
+            var tag = await tagService.CreateAsync(tagName);
+            return Ok(mapper.MapToDto(tag));
         }
 
-        [HttpPut("{id:guid}")]
-        public ActionResult Update([FromRoute, Required] Guid id, [FromBody] string newName)
+        [HttpPut("{id:guid}/{newName}")]
+        public async Task<ActionResult<TagDto>> Update([FromRoute, Required] Guid id, [FromRoute, Required] string newName)
         {
-            return Ok();
+            if (string.IsNullOrEmpty(newName) || string.IsNullOrWhiteSpace(newName))
+                return BadRequest();
+
+            var tag = await tagService.UpdateAsync(id, newName);
+            return Ok(mapper.MapToDto(tag));
         }
 
         [HttpDelete("{id:guid}")]
-        public ActionResult Delete([FromRoute, Required] Guid id)
+        public async Task<ActionResult> Delete([FromRoute, Required] Guid id)
         {
+            await tagService.DeleteAsync(id);
             return Ok();
         }
     }

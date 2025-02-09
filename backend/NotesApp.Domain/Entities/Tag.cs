@@ -2,12 +2,13 @@
 
 namespace NotesApp.Domain.Entities
 {
-    public class Tag : IModelId, IAuditable
+    public class Tag : IEntityId, IAuditable, IUserSpecific
     {
 #nullable disable
         public string Name { get; set; }
 #nullable enable
 
+        //IUserSpecific impl
         public Guid UserId { get; set; }
         public User? User { get; set; }
         public ICollection<Note> Notes { get; set; } = [];

@@ -6,6 +6,6 @@ namespace NotesApp.DAL.Repositories
 {
     internal class Repository<TEntity>(NotesAppDbContext dbContext) : 
         RepositoryBase<TEntity>(dbContext), IRepository<TEntity>
-        where TEntity : class, IModelId, IAuditable
+        where TEntity : class, IEntityId, IAuditable
     { }
 }

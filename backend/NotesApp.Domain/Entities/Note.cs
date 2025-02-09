@@ -2,13 +2,14 @@
 
 namespace NotesApp.Domain.Entities
 {
-    public class Note : IModelId, IAuditable
+    public class Note : IEntityId, IAuditable, IUserSpecific
     {
 #nullable disable
         public string Name { get; set; }
         public string Description { get; set; }
 #nullable enable
 
+        //IUserSpecific impl
         public Guid UserId { get; set; }
         public User? User { get; set; }
 

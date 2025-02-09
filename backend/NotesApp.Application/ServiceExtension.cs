@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 using NotesApp.Application.Services;
+using NotesApp.Domain.Interfaces.Mapping;
 using NotesApp.Domain.Interfaces.Services;
 
 namespace NotesApp.Application
@@ -12,6 +14,20 @@ namespace NotesApp.Application
             services.AddScoped<INoteService, NoteService>();
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<IAttachmentService, AttachmentService>();
+            services.AddMappers();
+        }
+
+        private static void AddMappers(this IServiceCollection services)
+        {
+            var assemblyTypes = Assembly.GetExecutingAssembly().GetTypes().ToList();
+            assemblyTypes.ForEach(implType =>
+            {
+                var srvType = implType.GetInterfaces()
+                    .FirstOrDefault(t => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(IMapper<,>));
+
+                if (srvType is not null)
+                    services.AddSingleton(srvType, implType);
+            });
         }
     }
 }

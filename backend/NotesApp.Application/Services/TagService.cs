@@ -1,35 +1,59 @@
-﻿using NotesApp.Domain.Entities;
+﻿using NotesApp.Application.Specifications;
+using NotesApp.Domain.Entities;
 using NotesApp.Domain.Interfaces.Repositories;
 using NotesApp.Domain.Interfaces.Services;
 
 namespace NotesApp.Application.Services
 {
     internal class TagService(
+        TemporaryUser temporaryUser,
         IRepository<Tag> tagRepository) : ITagService
     {
-        public Task<Tag> CreateAsync(Tag tagDto)
+
+        public async Task<IEnumerable<Tag>> GetAllAsync(Guid? userId = null)
         {
-            throw new NotImplementedException();
+            if (userId.HasValue)
+            {
+                return await tagRepository.ListAsync(new ByUserIdSpec<Tag>(userId.Value, true));
+            }
+            return await tagRepository.ListAsync(new AsNoTrackingSpec<Tag>());
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task<Tag?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await tagRepository.FirstOrDefaultAsync(new AsNoTrackingAndByIdSpec<Tag>(id));
         }
 
-        public Task<IEnumerable<Tag>> GetAllAsync(Guid? userId = null)
+        public async Task<Tag> CreateAsync(string name)
         {
-            throw new NotImplementedException();
+            var tag = new Tag 
+            { 
+                Name = name,
+                UserId = temporaryUser.User.Id //TODO
+            };
+            //TODO check if user already has passed tag 
+            await tagRepository.AddAsync(tag);
+            return tag;
         }
 
-        public Task<Tag> GetByIdAsync(Guid id)
+        public async Task<Tag> UpdateAsync(Guid id, string newName)
         {
-            throw new NotImplementedException();
+            var tag = await tagRepository.GetByIdAsync(id) ??
+                throw new NullReferenceException("Tag is not found");
+
+
+            //TODO check if user already has passed tag 
+            tag.Name = newName;
+            await tagRepository.UpdateAsync(tag);
+            return tag;
         }
 
-        public Task<Tag> UpdateAsync(Guid id, Tag tagDto)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var tag = await tagRepository.GetByIdAsync(id) ??
+                throw new NullReferenceException("Tag is not found");
+
+            await tagRepository.DeleteAsync(tag);
         }
     }
 }
