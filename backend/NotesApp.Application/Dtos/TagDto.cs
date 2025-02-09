@@ -1,4 +1,4 @@
-﻿namespace NotesApp.Domain.Dtos
+﻿namespace NotesApp.Application.Dtos
 {
     public record TagGetDto();
     public record TagCreateOrUpdateDto();
