@@ -1,5 +1,4 @@
-﻿using NotesApp.Domain.Dtos;
-using NotesApp.Domain.Entities;
+﻿using NotesApp.Domain.Entities;
 using NotesApp.Domain.Interfaces.Repositories;
 using NotesApp.Domain.Interfaces.Services;
 
@@ -8,16 +7,7 @@ namespace NotesApp.Application.Services
     internal class TagService(
         IRepository<Tag> tagRepository) : ITagService
     {
-        public async Task<IEnumerable<TagGetDto>> GetAllAsync(Guid? userId = null)
-        {
-            if (userId.HasValue)
-            {
-
-            }
-            return await tagRepository.ListAsync();
-        }
-
-        public Task<TagGetDto> CreateAsync(TagCreateOrUpdateDto tagDto)
+        public Task<Tag> CreateAsync(Tag tagDto)
         {
             throw new NotImplementedException();
         }
@@ -27,14 +17,17 @@ namespace NotesApp.Application.Services
             throw new NotImplementedException();
         }
 
-
-
-        public Task<TagGetDto> GetByIdAsync(Guid id)
+        public Task<IEnumerable<Tag>> GetAllAsync(Guid? userId = null)
         {
             throw new NotImplementedException();
         }
 
-        public Task<TagGetDto> UpdateAsync(Guid id, TagCreateOrUpdateDto tagDto)
+        public Task<Tag> GetByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Tag> UpdateAsync(Guid id, Tag tagDto)
         {
             throw new NotImplementedException();
         }

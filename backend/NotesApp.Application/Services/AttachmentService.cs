@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using NotesApp.Domain.Dtos;
+using NotesApp.Domain.Entities;
 using NotesApp.Domain.Interfaces.Services;
 
 namespace NotesApp.Application.Services
@@ -16,12 +16,12 @@ namespace NotesApp.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<AttachmentDto>> GetAllAsync(Guid? userId = null)
+        public Task<IEnumerable<Attachment>> GetAllAsync(Guid? userId = null)
         {
             throw new NotImplementedException();
         }
 
-        public Task<AttachmentDto> GetByIdAsync(Guid id)
+        public Task<Attachment> GetByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
