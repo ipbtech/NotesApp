@@ -2,7 +2,7 @@
 {
     public enum NoteSortType
     {
-        Ascending = 1,
-        Descending = 2,
+        Descending = 1,
+        Ascending = 2,
     }
 }
