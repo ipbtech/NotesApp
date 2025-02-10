@@ -19,9 +19,18 @@ namespace NotesApp.Api.Controllers
     {
         
         [HttpGet]
-        public async Task<ActionResult<TagDto>> GetAll([FromQuery] Guid? userId)
+        //TODO rights authorize
+        public async Task<ActionResult<TagDto>> GetAll()
         {
-            var tags = await tagService.GetAllAsync(userId);
+            var tags = await tagService.GetAllAsync();
+            return Ok(mapper.MapToDto(tags));
+        }
+
+        [HttpGet("current-user")]
+        public async Task<ActionResult<TagDto>> GetAllByCurrentUser()
+        {
+            //TODO
+            var tags = await tagService.GetAllAsync();
             return Ok(mapper.MapToDto(tags));
         }
 
