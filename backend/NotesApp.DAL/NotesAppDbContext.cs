@@ -1,13 +1,25 @@
 ﻿using System.Reflection;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using NotesApp.Domain.Entities;
 using NotesApp.Domain.Interfaces.Entities;
 
 namespace NotesApp.DAL
 {
     public class NotesAppDbContext : DbContext
     {
-        public NotesAppDbContext(DbContextOptions<NotesAppDbContext> options) : base(options)
+        private readonly SeedUser _seedUser;
+        private readonly IWebHostEnvironment _environment;
+        public NotesAppDbContext(
+            DbContextOptions<NotesAppDbContext> options,
+            IWebHostEnvironment environment,
+            IOptions<SeedUser> seedUserOptions) : base(options)
         {
+            _seedUser = seedUserOptions.Value;
+            _environment = environment;
+
             if (Database.GetPendingMigrations().Any())
                 Database.Migrate();
         }
@@ -15,8 +27,23 @@ namespace NotesApp.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
             //TODO indexes
+
+            if (_environment.IsDevelopment())
+            {
+                modelBuilder.Entity<User>().HasData(new User
+                {
+                    Id = _seedUser.Id,
+                    Email = _seedUser.Email,
+                    UserName = _seedUser.UserName,
+                    Password = _seedUser.Password,
+                    Role = _seedUser.Role,
+                    CreatedAtUtc = new DateTime(2025, 1, 1),
+                    CreatedBy = Guid.Empty,
+                    UpdatedAtUtc = new DateTime(2025, 1, 1),
+                    UpdatedBy = Guid.Empty,
+                });
+            }
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

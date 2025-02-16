@@ -1,4 +1,5 @@
-﻿using NotesApp.Domain.Interfaces.Entities;
+﻿using NotesApp.Domain.Enums;
+using NotesApp.Domain.Interfaces.Entities;
 
 namespace NotesApp.Domain.Entities
 {
@@ -10,6 +11,7 @@ namespace NotesApp.Domain.Entities
         public string Password { get; set; }
 #nullable enable
 
+        public UserRole Role { get; set; }
         public Avatar? Avatar { get; set; }
         public ICollection<Note> PersonalNotes { get; set; } = [];
         public ICollection<Note> AllowedNotes { get; set; } = [];

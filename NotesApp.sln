@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesApp.Application", "bac
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "application", "application", "{D8F16FC2-11F5-4CEB-9C2B-66962C6068AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesApp.AuthService", "backend\NotesApp.AuthService\NotesApp.AuthService.csproj", "{2B94EB1F-2CE3-49AD-A554-C4EA17FA3878}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{21ADA23D-DC94-4882-B6AD-2F492DFBAAAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21ADA23D-DC94-4882-B6AD-2F492DFBAAAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21ADA23D-DC94-4882-B6AD-2F492DFBAAAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B94EB1F-2CE3-49AD-A554-C4EA17FA3878}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B94EB1F-2CE3-49AD-A554-C4EA17FA3878}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B94EB1F-2CE3-49AD-A554-C4EA17FA3878}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B94EB1F-2CE3-49AD-A554-C4EA17FA3878}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +64,6 @@ Global
 		{AA515943-B323-4C56-AC2F-680B3DDA5614} = {5E1DB72D-6C15-4427-AB7C-C85941A93701}
 		{B9D5887C-417B-4BBC-99E2-1B060F7CF4BB} = {6B2BA9F5-DEAA-4B72-B3EB-1D963B6E63F4}
 		{21ADA23D-DC94-4882-B6AD-2F492DFBAAAA} = {D8F16FC2-11F5-4CEB-9C2B-66962C6068AC}
+		{2B94EB1F-2CE3-49AD-A554-C4EA17FA3878} = {D8F16FC2-11F5-4CEB-9C2B-66962C6068AC}
 	EndGlobalSection
 EndGlobal
