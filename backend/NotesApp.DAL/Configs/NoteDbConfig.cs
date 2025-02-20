@@ -11,10 +11,6 @@ namespace NotesApp.DAL.Configs
             builder.Property(e => e.Id).ValueGeneratedOnAdd().IsRequired();
             builder.Property(e => e.Name).HasMaxLength(255).IsRequired();
 
-            builder.HasMany(e => e.Attachments).WithOne(e => e.Note)
-                .HasForeignKey(e => e.NoteId)
-                .OnDelete(DeleteBehavior.Cascade);
-
             builder.HasOne(e => e.Tag).WithMany(e => e.Notes)
                 .HasForeignKey(e => e.TagId)
                 .OnDelete(DeleteBehavior.SetNull);

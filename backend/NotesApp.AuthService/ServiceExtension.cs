@@ -26,6 +26,7 @@ namespace NotesApp.AuthService
                     };
                 });
 
+
             services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.OptionName));
             services.AddScoped<AuthService>();
         }

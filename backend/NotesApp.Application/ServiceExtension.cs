@@ -13,7 +13,6 @@ namespace NotesApp.Application
             services.AddSingleton<TemporaryUser>();
             services.AddScoped<INoteService, NoteService>();
             services.AddScoped<ITagService, TagService>();
-            services.AddScoped<IAttachmentService, AttachmentService>();
             services.AddMappers();
         }
 

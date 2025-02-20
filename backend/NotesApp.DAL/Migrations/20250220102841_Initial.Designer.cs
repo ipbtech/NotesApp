@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NotesApp.DAL.Migrations
 {
     [DbContext(typeof(NotesAppDbContext))]
-    [Migration("20250216180834_Initial")]
+    [Migration("20250220102841_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -38,47 +38,6 @@ namespace NotesApp.DAL.Migrations
                     b.HasIndex("AllowedNotesId");
 
                     b.ToTable("NoteUser");
-                });
-
-            modelBuilder.Entity("NotesApp.Domain.Entities.Attachment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<byte[]>("Content")
-                        .HasColumnType("bytea");
-
-                    b.Property<DateTime>("CreatedAtUtc")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("FileExtension")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.Property<Guid>("NoteId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("UpdatedAtUtc")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UpdatedBy")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NoteId");
-
-                    b.ToTable("Attachment");
                 });
 
             modelBuilder.Entity("NotesApp.Domain.Entities.Avatar", b =>
@@ -236,20 +195,6 @@ namespace NotesApp.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("a6168af9-8470-44ff-8e05-0a46d5696f50"),
-                            CreatedAtUtc = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Email = "admin@admin.com",
-                            Password = "admin",
-                            Role = "Admin",
-                            UpdatedAtUtc = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UpdatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("NoteUser", b =>
@@ -265,17 +210,6 @@ namespace NotesApp.DAL.Migrations
                         .HasForeignKey("AllowedNotesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("NotesApp.Domain.Entities.Attachment", b =>
-                {
-                    b.HasOne("NotesApp.Domain.Entities.Note", "Note")
-                        .WithMany("Attachments")
-                        .HasForeignKey("NoteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Note");
                 });
 
             modelBuilder.Entity("NotesApp.Domain.Entities.Avatar", b =>
@@ -316,11 +250,6 @@ namespace NotesApp.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("NotesApp.Domain.Entities.Note", b =>
-                {
-                    b.Navigation("Attachments");
                 });
 
             modelBuilder.Entity("NotesApp.Domain.Entities.Tag", b =>

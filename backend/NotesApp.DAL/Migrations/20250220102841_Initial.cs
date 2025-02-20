@@ -110,31 +110,6 @@ namespace NotesApp.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Attachment",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    NoteId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAtUtc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: false),
-                    UpdatedAtUtc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedBy = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    FileExtension = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
-                    Content = table.Column<byte[]>(type: "bytea", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Attachment", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Attachment_Note_NoteId",
-                        column: x => x.NoteId,
-                        principalTable: "Note",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "NoteUser",
                 columns: table => new
                 {
@@ -157,16 +132,6 @@ namespace NotesApp.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.InsertData(
-                table: "User",
-                columns: new[] { "Id", "CreatedAtUtc", "CreatedBy", "Email", "Password", "Role", "UpdatedAtUtc", "UpdatedBy", "UserName" },
-                values: new object[] { new Guid("a6168af9-8470-44ff-8e05-0a46d5696f50"), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new Guid("00000000-0000-0000-0000-000000000000"), "admin@admin.com", "admin", "Admin", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new Guid("00000000-0000-0000-0000-000000000000"), "admin" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Attachment_NoteId",
-                table: "Attachment",
-                column: "NoteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Avatar_UserId",
@@ -198,9 +163,6 @@ namespace NotesApp.DAL.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Attachment");
-
             migrationBuilder.DropTable(
                 name: "Avatar");
 

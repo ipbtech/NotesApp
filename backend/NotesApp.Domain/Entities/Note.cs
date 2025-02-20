@@ -17,7 +17,6 @@ namespace NotesApp.Domain.Entities
         public Tag? Tag { get; set; }
 
         public ICollection<User> AddedUsers { get; set; } = [];
-        public ICollection<Attachment> Attachments { get; set; } = [];
 
         //IModelId impl
         public Guid Id { get; set; }

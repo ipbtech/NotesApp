@@ -10,16 +10,9 @@ namespace NotesApp.DAL
 {
     public class NotesAppDbContext : DbContext
     {
-        private readonly SeedUser _seedUser;
-        private readonly IWebHostEnvironment _environment;
         public NotesAppDbContext(
-            DbContextOptions<NotesAppDbContext> options,
-            IWebHostEnvironment environment,
-            IOptions<SeedUser> seedUserOptions) : base(options)
+            DbContextOptions<NotesAppDbContext> options) : base(options)
         {
-            _seedUser = seedUserOptions.Value;
-            _environment = environment;
-
             if (Database.GetPendingMigrations().Any())
                 Database.Migrate();
         }
@@ -28,22 +21,6 @@ namespace NotesApp.DAL
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             //TODO indexes
-
-            if (_environment.IsDevelopment())
-            {
-                modelBuilder.Entity<User>().HasData(new User
-                {
-                    Id = _seedUser.Id,
-                    Email = _seedUser.Email,
-                    UserName = _seedUser.UserName,
-                    Password = _seedUser.Password,
-                    Role = _seedUser.Role,
-                    CreatedAtUtc = new DateTime(2025, 1, 1),
-                    CreatedBy = Guid.Empty,
-                    UpdatedAtUtc = new DateTime(2025, 1, 1),
-                    UpdatedBy = Guid.Empty,
-                });
-            }
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
