@@ -10,7 +10,7 @@ namespace NotesApp.DAL.Configs
         {
             builder.Property(e => e.Id).ValueGeneratedOnAdd().IsRequired();
             builder.Property(e => e.Email).HasMaxLength(255).IsRequired();
-            builder.Property(e => e.UserName).HasMaxLength(150).IsRequired();
+            builder.Property(e => e.UserName).HasMaxLength(150);
             builder.Property(e => e.PasswordHash).IsRequired();
             builder.Property(e => e.Role).HasColumnType("text").IsRequired();
 

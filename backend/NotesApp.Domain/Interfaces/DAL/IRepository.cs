@@ -1,9 +1,9 @@
 ﻿using Ardalis.Specification;
 using NotesApp.Domain.Interfaces.Entities;
 
-namespace NotesApp.Domain.Interfaces.Repositories
+namespace NotesApp.Domain.Interfaces.DAL
 {
     public interface IRepository<TEntity> : IRepositoryBase<TEntity> 
-        where TEntity : class, IEntityId, IAuditable
+        where TEntity : class, IEntityId
     { }
 }

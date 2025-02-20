@@ -2,16 +2,16 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NotesApp.DAL.Repositories;
+using NotesApp.DAL.Impl;
 using NotesApp.Domain.Entities;
-using NotesApp.Domain.Interfaces.Repositories;
+using NotesApp.Domain.Interfaces.DAL;
 using NotesApp.Domain.Utils;
 
 namespace NotesApp.DAL
 {
     public static class ServiceExtension
     {
-        public static void AddDataAccess(this IServiceCollection services, IConfiguration configuration)
+        public static void AddDataAccessServices(this IServiceCollection services, IConfiguration configuration)
         {
             var seedUser = configuration.GetSection(SeedUser.OptionName).Get<User>();
             seedUser.PasswordHash = StringHasher.ToHash(seedUser.PasswordHash);
@@ -39,6 +39,7 @@ namespace NotesApp.DAL
                 });
             });
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<ITransactionManager, TransactionManager>();
         }
     }
 }

@@ -1,7 +1,7 @@
-using NotesApp.DAL;
-using NotesApp.Application;
 using NotesApp.Api.Extensions;
-using NotesApp.AuthService;
+using NotesApp.Application;
+using NotesApp.Auth;
+using NotesApp.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +16,8 @@ builder.Services.Configure<RouteOptions>(opt => {
 });
 
 // application services
-builder.Services.AddAuthService(builder.Configuration);
-builder.Services.AddDataAccess(builder.Configuration);
+builder.Services.AddAuthServices(builder.Configuration);
+builder.Services.AddDataAccessServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 
 // global exception handler

@@ -1,6 +1,6 @@
 ﻿using NotesApp.Application.Specifications;
 using NotesApp.Domain.Entities;
-using NotesApp.Domain.Interfaces.Repositories;
+using NotesApp.Domain.Interfaces.DAL;
 using NotesApp.Domain.Interfaces.Services;
 
 namespace NotesApp.Application.Services
