@@ -4,8 +4,8 @@
         Guid Id,
         string Name,
         Guid UserId,
-        DateTime CreatedAtUtc,
+        DateTimeOffset CreatedAtUtc,
         Guid CreatedBy,
-        DateTime UpdatedAtUtc,
+        DateTimeOffset UpdatedAtUtc,
         Guid UpdatedBy);
 }

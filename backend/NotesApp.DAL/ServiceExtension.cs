@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NotesApp.DAL.Repositories;
@@ -31,6 +32,10 @@ namespace NotesApp.DAL
                         dbContext.Set<User>().Add(seedUser);
                         dbContext.SaveChanges();
                     }
+                });
+                opt.ConfigureWarnings(builder =>
+                {
+                    builder.Ignore(RelationalEventId.PendingModelChangesWarning);
                 });
             });
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

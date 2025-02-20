@@ -10,7 +10,6 @@ namespace NotesApp.Application
     {
         public static void AddApplicationServices(this IServiceCollection services)
         {
-            services.AddSingleton<TemporaryUser>();
             services.AddScoped<INoteService, NoteService>();
             services.AddScoped<ITagService, TagService>();
             services.AddMappers();

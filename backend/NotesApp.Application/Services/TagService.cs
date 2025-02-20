@@ -6,7 +6,6 @@ using NotesApp.Domain.Interfaces.Services;
 namespace NotesApp.Application.Services
 {
     internal class TagService(
-        TemporaryUser temporaryUser,
         IRepository<Tag> tagRepository) : ITagService
     {
 
@@ -29,7 +28,7 @@ namespace NotesApp.Application.Services
             var tag = new Tag 
             { 
                 Name = name,
-                UserId = temporaryUser.User.Id //TODO
+                //UserId = temporaryUser.User.Id //TODO
             };
             //TODO check if user already has passed tag 
             await tagRepository.AddAsync(tag);
