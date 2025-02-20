@@ -13,7 +13,7 @@ namespace NotesApp.AuthService
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    var jwtOpt = configuration.GetSection("JwtOptions").Get<JwtOptions>();
+                    var jwtOpt = configuration.GetSection(JwtOptions.OptionName).Get<JwtOptions>();
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,

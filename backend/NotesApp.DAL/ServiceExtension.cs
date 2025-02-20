@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NotesApp.DAL.Repositories;
 using NotesApp.Domain.Entities;
 using NotesApp.Domain.Interfaces.Repositories;
+using NotesApp.Domain.Utils;
 
 namespace NotesApp.DAL
 {
@@ -12,6 +13,7 @@ namespace NotesApp.DAL
         public static void AddDataAccess(this IServiceCollection services, IConfiguration configuration)
         {
             var seedUser = configuration.GetSection(SeedUser.OptionName).Get<User>();
+            seedUser.PasswordHash = StringHasher.ToHash(seedUser.PasswordHash);
             seedUser.CreatedAtUtc = new DateTime(2025, 1, 1).ToUniversalTime();
             seedUser.CreatedBy = Guid.Empty;
             seedUser.UpdatedAtUtc = new DateTime(2025, 1, 1).ToUniversalTime();

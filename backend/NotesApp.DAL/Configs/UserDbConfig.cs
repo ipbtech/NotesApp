@@ -11,11 +11,15 @@ namespace NotesApp.DAL.Configs
             builder.Property(e => e.Id).ValueGeneratedOnAdd().IsRequired();
             builder.Property(e => e.Email).HasMaxLength(255).IsRequired();
             builder.Property(e => e.UserName).HasMaxLength(150).IsRequired();
-            builder.Property(e => e.Password).IsRequired();
+            builder.Property(e => e.PasswordHash).IsRequired();
             builder.Property(e => e.Role).HasColumnType("text").IsRequired();
 
             builder.HasOne(e => e.Avatar).WithOne(e => e.User)
                 .HasForeignKey<Avatar>(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(e => e.RefreshTokens).WithOne(e => e.User)
+                .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(e => e.PersonalNotes).WithOne(e => e.User)
