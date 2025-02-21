@@ -7,7 +7,7 @@
     public record SignUpDto(
         string Email,
         string Password,
-        string ConfirmPassword);
+        string ConfirmPassword) : LoginDto(Email, Password);
 
     public record TokensDto(
         string AccessToken,

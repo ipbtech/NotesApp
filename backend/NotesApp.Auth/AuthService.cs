@@ -22,7 +22,7 @@ namespace NotesApp.Auth
             if (await userRepository.AnyAsync(new ByUserEmailSpec(signUpDto.Email)))
                 throw new ArgumentException("Email is already exist");
             
-            var user = new User()
+            var user = new User
             {
                 Email = signUpDto.Email,
                 PasswordHash = StringHasher.ToHash(signUpDto.Password),

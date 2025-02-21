@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace NotesApp.Api.Extensions
 {
-    public class ExceptionHandler(ILogger<ExceptionHandler> logger) : IExceptionHandler
+    public class ExceptionHandler(
+        ILogger<ExceptionHandler> logger) : IExceptionHandler
     {
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {
@@ -24,6 +25,7 @@ namespace NotesApp.Api.Extensions
                     break;
             }
 
+            httpContext.Response.StatusCode = statusCode;
             var problemDetails = new ProblemDetails
             {
                 Title = "An error occurred",

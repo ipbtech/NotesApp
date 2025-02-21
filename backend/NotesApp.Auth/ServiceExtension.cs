@@ -1,7 +1,11 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using NotesApp.Auth.Options;
 
@@ -27,8 +31,8 @@ namespace NotesApp.Auth
                     };
                 });
             services.AddAuthorization();
-
             services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.OptionName));
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddScoped<AuthService>();
         }
     }

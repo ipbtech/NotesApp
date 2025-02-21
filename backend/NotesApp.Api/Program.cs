@@ -1,6 +1,10 @@
+using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using NotesApp.Api.Extensions;
 using NotesApp.Application;
 using NotesApp.Auth;
+using NotesApp.Auth.Dto;
 using NotesApp.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +23,9 @@ builder.Services.Configure<RouteOptions>(opt => {
 builder.Services.AddAuthServices(builder.Configuration);
 builder.Services.AddDataAccessServices(builder.Configuration);
 builder.Services.AddApplicationServices();
+
+// auto fluent-validation
+builder.Services.AddFluentValidationAutoValidation();
 
 // global exception handler
 builder.Services.AddProblemDetails();
