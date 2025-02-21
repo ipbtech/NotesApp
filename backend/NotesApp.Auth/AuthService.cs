@@ -29,14 +29,7 @@ namespace NotesApp.Auth
                 Role = UserRole.User,
             };
 
-            await transactionManager.ExecuteAsync(async () =>
-            {
-                await userRepository.AddAsync(user);
-
-                user.CreatedBy = user.Id;
-                user.UpdatedBy = user.Id;
-                await userRepository.UpdateAsync(user);
-            });
+            await userRepository.AddAsync(user);
             return user.Id;
         }
 

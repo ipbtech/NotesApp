@@ -27,18 +27,13 @@ namespace NotesApp.DAL
                 if (entry.State == EntityState.Added)
                 {
                     entry.Property(e => e.CreatedAtUtc).CurrentValue = DateTime.UtcNow;
-                    entry.Property(e => e.CreatedBy).CurrentValue = Guid.Empty;
-
                     entry.Property(e => e.UpdatedAtUtc).CurrentValue = DateTime.UtcNow;
-                    entry.Property(e => e.UpdatedBy).CurrentValue = Guid.Empty;
                 }
 
                 if (entry.State == EntityState.Modified)
                 {
                     entry.Property(e => e.UpdatedAtUtc).CurrentValue = DateTime.UtcNow;
-                    entry.Property(e => e.UpdatedBy).CurrentValue = Guid.Empty;
                 }
-                //TODO Created and modified by
             }
             return base.SaveChangesAsync(cancellationToken);
         }

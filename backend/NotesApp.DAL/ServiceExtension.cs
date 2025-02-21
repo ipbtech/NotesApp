@@ -16,9 +16,7 @@ namespace NotesApp.DAL
             var seedUser = configuration.GetSection(SeedUser.OptionName).Get<User>();
             seedUser.PasswordHash = StringHasher.ToHash(seedUser.PasswordHash);
             seedUser.CreatedAtUtc = new DateTime(2025, 1, 1).ToUniversalTime();
-            seedUser.CreatedBy = Guid.Empty;
             seedUser.UpdatedAtUtc = new DateTime(2025, 1, 1).ToUniversalTime();
-            seedUser.UpdatedBy = Guid.Empty;
 
             var connStr = configuration.GetConnectionString("DockerDefault");
             services.AddDbContext<NotesAppDbContext>(opt =>
