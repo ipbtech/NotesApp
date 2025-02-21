@@ -2,9 +2,9 @@
 
 namespace NotesApp.Auth.Validation
 {
-    public class LoginValidator : AuthAbstractValidator<LoginDto>
-    {
-        public LoginValidator() : base() 
-        { }
-    }
+    //public class LoginValidator : AuthAbstractValidator<LoginDto>
+    //{
+    //    public LoginValidator() : base() 
+    //    { }
+    //}
 }
