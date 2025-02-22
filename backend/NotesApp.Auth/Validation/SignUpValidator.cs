@@ -5,7 +5,7 @@ namespace NotesApp.Auth.Validation;
 
 public class SignUpValidator : AbstractValidator<SignUpRequestDto>
 {
-    public SignUpValidator() : base()
+    public SignUpValidator()
     {
         RuleFor(e => e.Email)
             .NotNull().NotEmpty().WithMessage("Your email cannot be empty")

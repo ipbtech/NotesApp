@@ -58,11 +58,12 @@ namespace NotesApp.Api.Controllers
         public async Task<ActionResult> Logout()
         {
             if (!TryGetDeviceSessionCookie(out Guid deviceSessionId))
+            {
                 return BadRequest($"{DEVICE_SESSION_COOKIE_NAME} cookie is not exist or invalid");
+            }
 
             var userId = httpProvider.GetCurrentUserId();
             await authService.LogoutAsync(userId, deviceSessionId);
-
             Response.Cookies.Delete(DEVICE_SESSION_COOKIE_NAME);
             return Ok();
         }
@@ -74,7 +75,9 @@ namespace NotesApp.Api.Controllers
             [FromBody] RefreshTokenRequestDto refreshTokenRequestDto)
         {
             if (!TryGetDeviceSessionCookie(out Guid deviceSessionId))
+            {
                 return BadRequest($"{DEVICE_SESSION_COOKIE_NAME} cookie is not exist or invalid");
+            }
 
             var newToken = await authService.RefreshTokenAsync(refreshTokenRequestDto, deviceSessionId);
             return Ok(newToken);
@@ -96,12 +99,22 @@ namespace NotesApp.Api.Controllers
             return Task.FromResult<ActionResult>(Ok());
         }
 
+        //TODO
+        [HttpPost("change-password")]
+        [Authorize]
+        public Task<ActionResult> ChangePassword(
+            [FromBody] ChangePasswordDto passwordDto)
+        {
+            return Task.FromResult<ActionResult>(Ok());
+        }
+
+        //TODO forget passwords and confirmed email functionality
+
         private bool TryGetDeviceSessionCookie(out Guid deviceSessionId)
         {
             deviceSessionId = Guid.Empty;
             var deviceSessionCookie = Request.Cookies[DEVICE_SESSION_COOKIE_NAME];
-            if (deviceSessionCookie is not null &&
-                Guid.TryParse(deviceSessionCookie, out deviceSessionId))
+            if (deviceSessionCookie is not null && Guid.TryParse(deviceSessionCookie, out deviceSessionId))
             {
                 return true;
             }
