@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using NotesApp.Api.Extensions;
 using NotesApp.Auth;
 using NotesApp.Auth.Dto;
 using NotesApp.Auth.Options;
@@ -12,7 +13,7 @@ namespace NotesApp.Api.Controllers
     public class AuthController(
         AuthService authService,
         IOptions<JwtOptions> jwtOptions,
-        //IHttpContextAccessor httpContextAccessor,
+        HttpContextProvider httpProvider,
         ILogger<AuthController> logger) : ControllerBase
     {
         private const string DEVICE_SESSION_COOKIE_NAME = "DeviceSessionId";
@@ -74,10 +75,7 @@ namespace NotesApp.Api.Controllers
         public Task<ActionResult<RefreshTokenDto>> RefreshToken(
             [FromBody] RefreshTokenDto refreshTokenDto)
         {
-            //User.Claims.FirstOrDefault(c => c.)
             
-            
-            //var z = httpContextAccessor.HttpContext.
             
             return Task.FromResult<ActionResult<RefreshTokenDto>>(Ok());
         }

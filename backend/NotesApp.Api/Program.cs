@@ -31,6 +31,7 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<ExceptionHandler>();
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddNotesAppSwagger();
 
 var app = builder.Build();
