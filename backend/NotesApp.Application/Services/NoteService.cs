@@ -1,13 +1,10 @@
 ﻿using NotesApp.Domain.Entities;
 using NotesApp.Domain.Enums;
-using NotesApp.Domain.Interfaces.DAL;
 using NotesApp.Domain.Interfaces.Services;
 
 namespace NotesApp.Application.Services
 {
-    internal class NoteService(
-        IRepository<Note> repository,
-        IRepository<User> userRepo) : INoteService
+    internal class NoteService : INoteService
     {
         public Task<Note> CreateAsync(Note noteDto)
         {

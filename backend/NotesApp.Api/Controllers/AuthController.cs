@@ -57,27 +57,27 @@ namespace NotesApp.Api.Controllers
         [Authorize]
         public async Task<ActionResult> Logout()
         {
-            var deviceSessionCookie = Request.Cookies[DEVICE_SESSION_COOKIE_NAME];
-            if (deviceSessionCookie is null ||
-                !Guid.TryParse(deviceSessionCookie, out Guid deviceSessionId))
-            {
+            if (!TryGetDeviceSessionCookie(out Guid deviceSessionId))
                 return BadRequest($"{DEVICE_SESSION_COOKIE_NAME} cookie is not exist or invalid");
-            }
 
-            await authService.LogoutAsync(deviceSessionId);
+            var userId = httpProvider.GetCurrentUserId();
+            await authService.LogoutAsync(userId, deviceSessionId);
+
             Response.Cookies.Delete(DEVICE_SESSION_COOKIE_NAME);
             return Ok();
         }
 
 
         [HttpPost("refresh-token")]
-        [Authorize]
-        public Task<ActionResult<RefreshTokenDto>> RefreshToken(
-            [FromBody] RefreshTokenDto refreshTokenDto)
+        [AllowAnonymous]
+        public async Task<ActionResult<RefreshTokenResponseDto>> RefreshToken(
+            [FromBody] RefreshTokenRequestDto refreshTokenRequestDto)
         {
-            
-            
-            return Task.FromResult<ActionResult<RefreshTokenDto>>(Ok());
+            if (!TryGetDeviceSessionCookie(out Guid deviceSessionId))
+                return BadRequest($"{DEVICE_SESSION_COOKIE_NAME} cookie is not exist or invalid");
+
+            var newToken = await authService.RefreshTokenAsync(refreshTokenRequestDto, deviceSessionId);
+            return Ok(newToken);
         }
 
 
@@ -86,6 +86,18 @@ namespace NotesApp.Api.Controllers
         public Task<ActionResult> RevokeToken()
         {
             return Task.FromResult<ActionResult>(Ok());
+        }
+
+        private bool TryGetDeviceSessionCookie(out Guid deviceSessionId)
+        {
+            deviceSessionId = Guid.Empty;
+            var deviceSessionCookie = Request.Cookies[DEVICE_SESSION_COOKIE_NAME];
+            if (deviceSessionCookie is not null &&
+                Guid.TryParse(deviceSessionCookie, out deviceSessionId))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

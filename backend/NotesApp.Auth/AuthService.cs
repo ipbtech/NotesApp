@@ -2,30 +2,29 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using NotesApp.Application.Specifications;
 using NotesApp.Auth.Dto;
 using NotesApp.Auth.Options;
+using NotesApp.DAL;
 using NotesApp.Domain.Entities;
 using NotesApp.Domain.Enums;
-using NotesApp.Domain.Interfaces.DAL;
 using NotesApp.Domain.Utils;
 
 namespace NotesApp.Auth
 {
     public class AuthService(
         IOptions<JwtOptions> jwtOptions,
-        IRepository<User> userRepository,
-        IRepository<RefreshToken> tokenRepository)
+        NotesAppDbContext dbContext)
     {
         private readonly JwtOptions _jwtOptions = jwtOptions.Value;
 
         public async Task<Guid> RegisterAsync(
             SignUpRequestDto signUpRequestDto)
         {
-            if (await userRepository.AnyAsync(new ByUserEmailSpec(signUpRequestDto.Email)))
-                throw new ArgumentException("Email is already exist");
+            if (await dbContext.Users.AnyAsync(e => e.Email == signUpRequestDto.Email))
+                throw new ArgumentException("Email already exists");
             
             var user = new User
             {
@@ -34,7 +33,8 @@ namespace NotesApp.Auth
                 Role = UserRole.User,
             };
 
-            await userRepository.AddAsync(user);
+            await dbContext.Users.AddAsync(user);
+            await dbContext.SaveChangesAsync();
             return user.Id;
         }
 
@@ -42,37 +42,59 @@ namespace NotesApp.Auth
             LoginRequestDto loginRequestDto,
             Guid deviceSessionId)
         {
-            var user = await userRepository.FirstOrDefaultAsync(new ByUserEmailSpec(loginRequestDto.Email)) ??
-                throw new ArgumentException("Email is not exist");
+            var user = await dbContext.Users.AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Email == loginRequestDto.Email) ??
+                    throw new ArgumentException("Email does not exist");
 
             var accessToken = GenerateAccessToken(user);
             var refreshToken = GenerateRefreshToken();
 
-            var refreshTokenEntity = new RefreshToken()
+            var refreshTokenEntity = new RefreshToken
             {
                 UserId = user.Id,
                 DeviceSessionId = deviceSessionId,
                 ExpiredDateTimeUtc = DateTime.UtcNow.AddDays(_jwtOptions.RefreshTokenExpirationDays),
                 TokenHash = StringHasher.ToHash(refreshToken)
             };
-            await tokenRepository.AddAsync(refreshTokenEntity);
+            await dbContext.RefreshTokens.AddAsync(refreshTokenEntity);
+            await dbContext.SaveChangesAsync();
             return new LoginResponseDto(accessToken, refreshToken);
         }
 
-        public async Task LogoutAsync(Guid deviceSessionId)
+        public async Task LogoutAsync(
+            Guid userId,
+            Guid deviceSessionId)
         {
-            var refreshToken = await tokenRepository
-                .FirstOrDefaultAsync(new ByDeviceSessionIdSpec(deviceSessionId));
+            var refreshToken = await dbContext.RefreshTokens
+                .FirstOrDefaultAsync(e => e.UserId == userId && e.DeviceSessionId == deviceSessionId);
 
             if (refreshToken is not null)
             {
-                await tokenRepository.DeleteAsync(refreshToken);
+                dbContext.RefreshTokens.Remove(refreshToken);
+                await dbContext.SaveChangesAsync();
             }
         }
 
-        public async Task<RefreshTokenDto> RefreshTokenAsync(RefreshTokenDto refreshTokenDto)
+        public async Task<RefreshTokenResponseDto> RefreshTokenAsync(
+            RefreshTokenRequestDto refreshTokenRequestDto,
+            Guid deviceSessionId)
         {
-            throw new NotImplementedException();
+            var token = await dbContext.RefreshTokens.AsNoTracking()
+                .Include(e => e.User)
+                .FirstOrDefaultAsync(e =>
+                    e.UserId == refreshTokenRequestDto.UserId && e.DeviceSessionId == deviceSessionId);
+
+            if (token is null)
+                throw new UnauthorizedAccessException("The token has already revoked");
+
+            if (!StringHasher.VerifyHash(refreshTokenRequestDto.RefreshToken, token.TokenHash))
+                throw new UnauthorizedAccessException("The token is invalid");
+
+            if (token.ExpiredDateTimeUtc <= DateTime.UtcNow)
+                throw new UnauthorizedAccessException("The token has expired");
+
+            var accessToken = GenerateAccessToken(token.User);
+            return new RefreshTokenResponseDto(accessToken);
         }
 
         public async Task RevokeRefreshTokenAsync(Guid? userId)

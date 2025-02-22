@@ -1,11 +1,19 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using NotesApp.Domain.Entities;
 using NotesApp.Domain.Interfaces.Entities;
 
 namespace NotesApp.DAL
 {
     public class NotesAppDbContext : DbContext
     {
+        public DbSet<User> Users { get; set; }
+        public DbSet<Avatar> Avatars { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Note> Notes { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+
+
         public NotesAppDbContext(
             DbContextOptions<NotesAppDbContext> options) : base(options)
         {

@@ -2,9 +2,7 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NotesApp.DAL.Impl;
 using NotesApp.Domain.Entities;
-using NotesApp.Domain.Interfaces.DAL;
 using NotesApp.Domain.Utils;
 
 namespace NotesApp.DAL
@@ -36,8 +34,6 @@ namespace NotesApp.DAL
                     builder.Ignore(RelationalEventId.PendingModelChangesWarning);
                 });
             });
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped<ITransactionManager, TransactionManager>();
         }
     }
 }

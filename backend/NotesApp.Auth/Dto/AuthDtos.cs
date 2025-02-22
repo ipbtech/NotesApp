@@ -13,8 +13,12 @@
         string AccessToken,
         string RefreshToken);
 
-    public record RefreshTokenDto(
+    public record RefreshTokenRequestDto(
+        Guid UserId,
         string RefreshToken);
+
+    public record RefreshTokenResponseDto(
+        string AccessToken);
 
     public record ChangePasswordDto(
         string OldPassword,
