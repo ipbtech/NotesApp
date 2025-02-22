@@ -7,7 +7,7 @@ namespace NotesApp.Application.Specifications
     {
         public ByUserEmailSpec(string email)
         {
-            Query.Where(x => x.Email == email);
+            Query.AsNoTracking().Where(x => x.Email == email);
         }
     }
 }

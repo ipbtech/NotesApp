@@ -7,6 +7,7 @@ namespace NotesApp.Domain.Entities
 #nullable disable
         public string TokenHash { get; set; }
 #nullable enable 
+        public Guid DeviceSessionId { get; set; }
         public DateTimeOffset ExpiredDateTimeUtc { get; set; }
 
         //IEntityId impl

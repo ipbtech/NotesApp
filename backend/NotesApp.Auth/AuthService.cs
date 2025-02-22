@@ -16,21 +16,21 @@ namespace NotesApp.Auth
 {
     public class AuthService(
         IOptions<JwtOptions> jwtOptions,
-        ITransactionManager transactionManager,
         IRepository<User> userRepository,
         IRepository<RefreshToken> tokenRepository)
     {
         private readonly JwtOptions _jwtOptions = jwtOptions.Value;
 
-        public async Task<Guid> RegisterAsync(SignUpDto signUpDto)
+        public async Task<Guid> RegisterAsync(
+            SignUpRequestDto signUpRequestDto)
         {
-            if (await userRepository.AnyAsync(new ByUserEmailSpec(signUpDto.Email)))
+            if (await userRepository.AnyAsync(new ByUserEmailSpec(signUpRequestDto.Email)))
                 throw new ArgumentException("Email is already exist");
             
             var user = new User
             {
-                Email = signUpDto.Email,
-                PasswordHash = StringHasher.ToHash(signUpDto.Password),
+                Email = signUpRequestDto.Email,
+                PasswordHash = StringHasher.ToHash(signUpRequestDto.Password),
                 Role = UserRole.User,
             };
 
@@ -38,9 +38,11 @@ namespace NotesApp.Auth
             return user.Id;
         }
 
-        public async Task<TokensDto> LoginAsync(LoginDto loginDto)
+        public async Task<LoginResponseDto> LoginAsync(
+            LoginRequestDto loginRequestDto,
+            Guid deviceSessionId)
         {
-            var user = await userRepository.FirstOrDefaultAsync(new ByUserEmailSpec(loginDto.Email)) ??
+            var user = await userRepository.FirstOrDefaultAsync(new ByUserEmailSpec(loginRequestDto.Email)) ??
                 throw new ArgumentException("Email is not exist");
 
             var accessToken = GenerateAccessToken(user);
@@ -49,16 +51,23 @@ namespace NotesApp.Auth
             var refreshTokenEntity = new RefreshToken()
             {
                 UserId = user.Id,
+                DeviceSessionId = deviceSessionId,
                 ExpiredDateTimeUtc = DateTime.UtcNow.AddDays(_jwtOptions.RefreshTokenExpirationDays),
                 TokenHash = StringHasher.ToHash(refreshToken)
             };
             await tokenRepository.AddAsync(refreshTokenEntity);
-            return new TokensDto(accessToken, refreshToken);
+            return new LoginResponseDto(accessToken, refreshToken);
         }
 
-        public async Task LogoutAsync(RefreshTokenDto refreshTokenDto)
+        public async Task LogoutAsync(Guid deviceSessionId)
         {
-            throw new NotImplementedException();
+            var refreshToken = await tokenRepository
+                .FirstOrDefaultAsync(new ByDeviceSessionIdSpec(deviceSessionId));
+
+            if (refreshToken is not null)
+            {
+                await tokenRepository.DeleteAsync(refreshToken);
+            }
         }
 
         public async Task<RefreshTokenDto> RefreshTokenAsync(RefreshTokenDto refreshTokenDto)
@@ -70,15 +79,17 @@ namespace NotesApp.Auth
         {
             throw new NotImplementedException();
         }
+        //4b22eac4-a83c-4085-88f6-c7ff5c7121df
+        //7b25e100-bd37-4f4d-9ae8-712502dea279
 
 
         private string GenerateAccessToken(User user)
         {
             var claims = new List<Claim> 
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role.ToString())
+                new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new(ClaimTypes.Email, user.Email),
+                new(ClaimTypes.Role, user.Role.ToString())
             };
 
             var signingCredentials = new SigningCredentials(

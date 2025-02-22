@@ -10,6 +10,7 @@ namespace NotesApp.DAL.Configs
         {
             builder.Property(e => e.Id).ValueGeneratedOnAdd().IsRequired();
             builder.Property(e => e.TokenHash).IsRequired();
+            builder.Property(e => e.DeviceSessionId).IsRequired();
             builder.Property(e => e.ExpiredDateTimeUtc).IsRequired();
         }
     }

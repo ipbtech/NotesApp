@@ -1,20 +1,19 @@
 ﻿namespace NotesApp.Auth.Dto
 {
-    public record LoginDto(
+    public record LoginRequestDto(
         string Email,
         string Password);
 
-    public record SignUpDto(
+    public record SignUpRequestDto(
         string Email,
         string Password,
-        string ConfirmPassword) : LoginDto(Email, Password);
+        string ConfirmPassword) : LoginRequestDto(Email, Password);
 
-    public record TokensDto(
+    public record LoginResponseDto(
         string AccessToken,
         string RefreshToken);
 
     public record RefreshTokenDto(
-        Guid UserId,
         string RefreshToken);
 
     public record ChangePasswordDto(
