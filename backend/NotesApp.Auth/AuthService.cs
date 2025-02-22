@@ -79,30 +79,34 @@ namespace NotesApp.Auth
             RefreshTokenRequestDto refreshTokenRequestDto,
             Guid deviceSessionId)
         {
-            var token = await dbContext.RefreshTokens.AsNoTracking()
+            var token = await dbContext.RefreshTokens
                 .Include(e => e.User)
                 .FirstOrDefaultAsync(e =>
                     e.UserId == refreshTokenRequestDto.UserId && e.DeviceSessionId == deviceSessionId);
 
             if (token is null)
-                throw new UnauthorizedAccessException("The token has already revoked");
+                throw new ArgumentException("The token has already revoked");
 
             if (!StringHasher.VerifyHash(refreshTokenRequestDto.RefreshToken, token.TokenHash))
-                throw new UnauthorizedAccessException("The token is invalid");
+                throw new ArgumentException("The token is invalid");
 
             if (token.ExpiredDateTimeUtc <= DateTime.UtcNow)
-                throw new UnauthorizedAccessException("The token has expired");
+            {
+                dbContext.RefreshTokens.Remove(token);
+                await dbContext.SaveChangesAsync();
+
+                throw new ArgumentException("The token has expired");
+            }
 
             var accessToken = GenerateAccessToken(token.User);
             return new RefreshTokenResponseDto(accessToken);
         }
 
+        //TODO create revokable mechanism 
         public async Task RevokeRefreshTokenAsync(Guid? userId)
         {
             throw new NotImplementedException();
         }
-        //4b22eac4-a83c-4085-88f6-c7ff5c7121df
-        //7b25e100-bd37-4f4d-9ae8-712502dea279
 
 
         private string GenerateAccessToken(User user)

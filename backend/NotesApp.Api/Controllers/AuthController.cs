@@ -80,7 +80,7 @@ namespace NotesApp.Api.Controllers
             return Ok(newToken);
         }
 
-
+        //TODO
         [HttpPost("revoke-token")]
         [Authorize(Roles = "Admin")]
         public Task<ActionResult> RevokeToken()
