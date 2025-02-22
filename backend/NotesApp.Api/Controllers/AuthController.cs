@@ -81,9 +81,17 @@ namespace NotesApp.Api.Controllers
         }
 
         //TODO
-        [HttpPost("revoke-token")]
+        [HttpPost("revoke-token/current-user")]
+        [Authorize]
+        public Task<ActionResult> RevokeTokensByCurrentUser()
+        {
+            return Task.FromResult<ActionResult>(Ok());
+        }
+
+        //TODO
+        [HttpPost("revoke-token/all-users")]
         [Authorize(Roles = "Admin")]
-        public Task<ActionResult> RevokeToken()
+        public Task<ActionResult> RevokeAllTokens()
         {
             return Task.FromResult<ActionResult>(Ok());
         }

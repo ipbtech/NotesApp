@@ -84,11 +84,10 @@ namespace NotesApp.Auth
                 .FirstOrDefaultAsync(e =>
                     e.UserId == refreshTokenRequestDto.UserId && e.DeviceSessionId == deviceSessionId);
 
-            if (token is null)
-                throw new ArgumentException("The token has already revoked");
-
-            if (!StringHasher.VerifyHash(refreshTokenRequestDto.RefreshToken, token.TokenHash))
-                throw new ArgumentException("The token is invalid");
+            if (token is null || !StringHasher.VerifyHash(refreshTokenRequestDto.RefreshToken, token.TokenHash))
+            {
+                throw new ArgumentException("The token is invalid or already has revoked");
+            }
 
             if (token.ExpiredDateTimeUtc <= DateTime.UtcNow)
             {
