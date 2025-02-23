@@ -8,8 +8,7 @@ namespace NotesApp.Auth.Validation
         public ChangePasswordValidator()
         {
             RuleFor(p => p.OldPassword)
-                .NotNull().NotEmpty().WithMessage("Your password cannot be empty")
-                .NotEqual(p => p.NewPassword).WithMessage("Passwords mustn't match");
+                .NotNull().NotEmpty().WithMessage("Your password cannot be empty");
 
 
             RuleFor(p => p.NewPassword)

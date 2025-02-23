@@ -21,7 +21,7 @@ namespace NotesApp.Api.Controllers
             [FromBody] SignUpRequestDto signUpRequestDto)
         {
             var userId = await authService.RegisterAsync(signUpRequestDto);
-            logger.LogInformation(@"User @{userId} was sign succeeded up", userId);
+            logger.LogInformation(@"User {userId} was sign succeeded up", userId);
             return Ok(userId);
         }
 
@@ -61,6 +61,7 @@ namespace NotesApp.Api.Controllers
         {
             var userId = httpProvider.GetCurrentUserId();
             await authService.RevokeRefreshTokenAsync(userId);
+            logger.LogWarning(@"User {userId} revoked his refresh tokens", userId);
             return Ok();
         }
 
@@ -70,6 +71,7 @@ namespace NotesApp.Api.Controllers
         public async Task<ActionResult> RevokeAllTokens()
         {
             await authService.RevokeRefreshTokenAsync();
+            logger.LogWarning("All refresh tokens were succeeded revoked");
             return Ok();
         }
 
@@ -81,6 +83,7 @@ namespace NotesApp.Api.Controllers
         {
             var userId = httpProvider.GetCurrentUserId();
             await authService.ChangePasswordAsync(userId, passwordDto);
+            logger.LogInformation(@"User {userId} changed his password", userId);
             return Ok();
         }
 
