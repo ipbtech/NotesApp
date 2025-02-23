@@ -73,13 +73,15 @@ namespace NotesApp.Api.Controllers
             return Ok();
         }
 
-        //TODO
+
         [HttpPost("change-password")]
         [Authorize]
-        public Task<ActionResult> ChangePassword(
+        public async Task<ActionResult> ChangePassword(
             [FromBody] ChangePasswordDto passwordDto)
         {
-            return Task.FromResult<ActionResult>(Ok());
+            var userId = httpProvider.GetCurrentUserId();
+            await authService.ChangePasswordAsync(userId, passwordDto);
+            return Ok();
         }
 
         //TODO forget passwords and confirmed email functionality

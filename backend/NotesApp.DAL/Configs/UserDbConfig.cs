@@ -27,6 +27,8 @@ namespace NotesApp.DAL.Configs
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(e => e.AllowedNotes).WithMany(e => e.AddedUsers);
+
+            builder.HasIndex(e => e.Email).IsUnique();
         }
     }
 }

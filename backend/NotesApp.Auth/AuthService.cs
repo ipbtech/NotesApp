@@ -121,6 +121,23 @@ namespace NotesApp.Auth
         }
 
 
+        public async Task ChangePasswordAsync(Guid userId, ChangePasswordDto changePasswordDto)
+        {
+            var user = await dbContext.Users.FindAsync(userId) ??
+                throw new ArgumentException("User doesn't exist");
+
+            if (!StringHasher.VerifyHash(changePasswordDto.OldPassword, user.PasswordHash))
+                throw new ArgumentException("Old password is uncorrected");
+
+            if (StringHasher.VerifyHash(changePasswordDto.NewPassword, user.PasswordHash))
+                throw new ArgumentException("Passwords mustn't match");
+
+            user.PasswordHash = StringHasher.ToHash(changePasswordDto.NewPassword);
+            await RevokeRefreshTokenAsync(user.Id);
+            await dbContext.SaveChangesAsync();
+        }
+
+
         private string GenerateAccessToken(User user)
         {
             var claims = new List<Claim> 
