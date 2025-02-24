@@ -1,0 +1,12 @@
+name: 'notes_app'
+
+services:
+  postgres_db:
+    container_name: pgsql_notesDb
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 32167
+      POSTGRES_DB: NotesAppDb
+    ports:
+      - '5433:5432'
