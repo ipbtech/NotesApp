@@ -1,10 +1,7 @@
-using System.Reflection;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using NotesApp.Api.Extensions;
 using NotesApp.Application;
 using NotesApp.Auth;
-using NotesApp.Auth.Dto;
 using NotesApp.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +15,8 @@ builder.Services.Configure<RouteOptions>(opt => {
     opt.LowercaseUrls = true;
     opt.LowercaseQueryStrings = true;
 });
+
+builder.Configuration.AddUserSecrets(typeof(Program).Assembly);
 
 // application services
 builder.Services.AddAuthServices(builder.Configuration);
@@ -54,3 +53,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+public partial class Program { } // needs for integration tests
