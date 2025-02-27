@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\NotesApp.Api\NotesApp.Api.csproj" />
-    <ProjectReference Include="..\NotesApp.Common.Tests\NotesApp.Common.Tests.csproj" />
   </ItemGroup>
 
   <ItemGroup>

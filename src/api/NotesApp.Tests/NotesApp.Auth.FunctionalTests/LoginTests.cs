@@ -2,36 +2,29 @@
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using NotesApp.Auth.Dto;
-using NotesApp.Auth.FunctionalTests.Base;
+using NotesApp.Common.Tests;
 
 namespace NotesApp.Auth.FunctionalTests
 {
     public class LogInTests(
-        WebApplicationFactory<Program> factory) : AuthTestBase(factory)
+        WebApplicationFactory<Program> factory) : WebAppTestBase(factory)
     {
         
         [Fact]
         public async Task Success()
         {
-            //Arrange
-            var dto = new LoginRequestDto(AuthTestUser.TestUser.Email, AuthTestUser.TestUserPassword);
-
-            //Act
-            var response = await Client.PostAsJsonAsync("/auth/login", dto);
-            var data = await response.Content.ReadFromJsonAsync<LoginResponseDto>();
+            var tokenDto = await GetTokensAsync();
 
             //Assert
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.False(string.IsNullOrEmpty(data?.AccessToken));
-            Assert.False(string.IsNullOrEmpty(data?.RefreshToken));
+            Assert.False(string.IsNullOrEmpty(tokenDto?.AccessToken));
+            Assert.False(string.IsNullOrEmpty(tokenDto.RefreshToken));
         }
 
         [Fact]
         public async Task UncorrectedPassword()
         {
             //Arrange
-            //var dto = new LoginRequestDto("newuser@user.com","Aab#$77l");
-            var dto = new LoginRequestDto(AuthTestUser.TestUser.Email, "qwertYY%$!");
+            var dto = new LoginRequestDto(TestData.TestUser.Email, "qwertYY%$!");
 
             //Act
             var response = await Client.PostAsJsonAsync("/auth/login", dto);

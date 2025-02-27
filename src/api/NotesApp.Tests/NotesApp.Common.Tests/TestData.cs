@@ -2,11 +2,12 @@
 using NotesApp.Domain.Enums;
 using NotesApp.Domain.Utils;
 
-namespace NotesApp.Auth.FunctionalTests.Base
+namespace NotesApp.Common.Tests
 {
-    internal static class AuthTestUser
+    public static class TestData
     {
         public static string TestUserPassword => "te$$$T31";
+
         public static User TestUser => new User
         {
             Id = new Guid("844675E1-FF43-434B-88DD-55B021079A02"),

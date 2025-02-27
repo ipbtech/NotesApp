@@ -24,10 +24,12 @@ namespace NotesApp.Auth
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidateLifetime = true,
+                        RequireExpirationTime = true,
+                        ClockSkew = TimeSpan.Zero, // without additional time (the default is 300 seconds)
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = jwtOpt?.Issuer,
                         ValidAudience = jwtOpt?.Audience,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOpt?.Key))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOpt?.Key)),
                     };
                 });
             services.AddAuthorization();

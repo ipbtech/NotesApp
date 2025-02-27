@@ -2,12 +2,12 @@
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using NotesApp.Auth.Dto;
-using NotesApp.Auth.FunctionalTests.Base;
+using NotesApp.Common.Tests;
 
 namespace NotesApp.Auth.FunctionalTests
 {
     public class SignUpTests(
-        WebApplicationFactory<Program> factory) : AuthTestBase(factory)
+        WebApplicationFactory<Program> factory) : WebAppTestBase(factory)
     {
         
         [Fact]
@@ -32,7 +32,7 @@ namespace NotesApp.Auth.FunctionalTests
         {
             //Arrange
             var dto = new SignUpRequestDto(
-                AuthTestUser.TestUser.Email, 
+                TestData.TestUser.Email, 
                 "Aab#$77l", 
                 "Aab#$77l");
 
@@ -49,7 +49,7 @@ namespace NotesApp.Auth.FunctionalTests
         {
             //Arrange
             var dto = new SignUpRequestDto(
-                AuthTestUser.TestUser.Email,
+                TestData.TestUser.Email,
                 "Aab",
                 "Aab");
 
