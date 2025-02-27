@@ -6,6 +6,7 @@ using NotesApp.Auth.Options;
 
 namespace NotesApp.Common.Tests
 {
+    // ReSharper disable InconsistentNaming
     public class WebAppTokenTestBase(
         WebApplicationFactory<Program> factory) : WebAppTestBase(factory)
     {

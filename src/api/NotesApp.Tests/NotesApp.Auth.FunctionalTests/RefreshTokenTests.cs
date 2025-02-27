@@ -45,7 +45,6 @@ namespace NotesApp.Auth.FunctionalTests
         public async Task InvalidToken()
         {
             //Arrange
-            var tokens = await GetTokensAsync();
             var dto = new RefreshTokenRequestDto(TestData.TestUser.Id, "invalidToken");
 
             //Act
@@ -59,7 +58,6 @@ namespace NotesApp.Auth.FunctionalTests
         public async Task Validation()
         {
             //Arrange
-            var tokens = await GetTokensAsync();
             var dto = new RefreshTokenRequestDto(TestData.TestUser.Id, string.Empty);
 
             //Act

@@ -57,7 +57,8 @@ namespace NotesApp.Common.Tests
         {
             var dbContextDescriptor = services.SingleOrDefault(d =>
                 d.ServiceType == typeof(IDbContextOptionsConfiguration<NotesAppDbContext>));
-            services.Remove(dbContextDescriptor);
+            if (dbContextDescriptor != null) 
+                services.Remove(dbContextDescriptor);
 
             _dbConnection.Open();
             services.AddDbContext<NotesAppDbContext>(opt =>

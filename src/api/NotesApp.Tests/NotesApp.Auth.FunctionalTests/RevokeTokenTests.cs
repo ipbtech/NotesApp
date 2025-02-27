@@ -42,7 +42,7 @@ namespace NotesApp.Auth.FunctionalTests
         {
             //Arrange
             var newUserSignUpDto = new SignUpRequestDto("newuser@user.com", "Aab#$77l", "Aab#$77l");
-            var signUpResponse = await Client.PostAsJsonAsync("/auth/sign-up", newUserSignUpDto);
+            _ = await Client.PostAsJsonAsync("/auth/sign-up", newUserSignUpDto);
 
             var tokens = await GetTokensAsync(newUserSignUpDto.Email, newUserSignUpDto.Password);
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokens?.AccessToken);
