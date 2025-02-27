@@ -2,12 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using NotesApp.Api.Extensions;
 using NotesApp.Auth;
-using NotesApp.Auth.Dto;
+using NotesApp.Dto;
 
 namespace NotesApp.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Produces("application/json")]
+    [Consumes("application/json")]
     public class AuthController(
         AuthService authService,
         HttpContextProvider httpProvider,

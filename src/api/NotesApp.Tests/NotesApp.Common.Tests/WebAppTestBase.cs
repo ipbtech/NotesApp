@@ -6,8 +6,8 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using NotesApp.Auth.Dto;
 using NotesApp.DAL;
+using NotesApp.Dto;
 
 namespace NotesApp.Common.Tests
 {

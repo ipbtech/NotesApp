@@ -5,12 +5,12 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using NotesApp.Auth.Dto;
 using NotesApp.Auth.Options;
 using NotesApp.DAL;
 using NotesApp.Domain.Entities;
 using NotesApp.Domain.Enums;
 using NotesApp.Domain.Utils;
+using NotesApp.Dto;
 
 namespace NotesApp.Auth
 {

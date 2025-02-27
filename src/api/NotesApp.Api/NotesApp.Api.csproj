@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\common\NotesApp.Dto\NotesApp.Dto.csproj" />
     <ProjectReference Include="..\NotesApp.Application\NotesApp.Application.csproj" />
     <ProjectReference Include="..\NotesApp.Auth\NotesApp.Auth.csproj" />
     <ProjectReference Include="..\NotesApp.DAL\NotesApp.DAL.csproj" />

@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
-using NotesApp.Auth.Dto;
 using NotesApp.Common.Tests;
+using NotesApp.Dto;
 
 namespace NotesApp.Auth.FunctionalTests
 {

@@ -10,6 +10,7 @@ namespace NotesApp.Application
     {
         public static void AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<INoteService, NoteService>();
             services.AddScoped<ITagService, TagService>();
             services.AddMappers();

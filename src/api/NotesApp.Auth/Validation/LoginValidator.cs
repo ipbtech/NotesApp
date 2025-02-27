@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using NotesApp.Auth.Dto;
+using NotesApp.Dto;
 
 namespace NotesApp.Auth.Validation
 {
     public class LoginValidator : AbstractValidator<LoginRequestDto>
     {
-        public LoginValidator() : base()
+        public LoginValidator()
         {
             RuleFor(e => e.Email)
                 .NotNull().NotEmpty().WithMessage("Your email cannot be empty")
