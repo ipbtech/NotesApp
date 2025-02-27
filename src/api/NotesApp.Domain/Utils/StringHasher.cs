@@ -1,6 +1,6 @@
 ﻿namespace NotesApp.Domain.Utils
 {
-    public class StringHasher
+    public static class StringHasher
     {
         public static string ToHash(string data)
         {

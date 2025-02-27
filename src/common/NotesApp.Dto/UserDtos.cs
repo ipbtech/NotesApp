@@ -8,4 +8,9 @@
 
     public record UserRequestDto(
         string UserName);
+
+    public record UserAvatarDto(
+        string FileName,
+        string FileExtension,
+        byte[] Content);
 }

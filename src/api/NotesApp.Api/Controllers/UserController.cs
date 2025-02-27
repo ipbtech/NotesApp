@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NotesApp.Api.Attributes;
 using NotesApp.Api.Extensions;
 using NotesApp.Domain.Interfaces.Services;
 using NotesApp.Dto;
@@ -13,6 +14,7 @@ namespace NotesApp.Api.Controllers
     [Consumes("application/json")]
     public class UserController(
         IUserService userService,
+        IAvatarService avatarService,
         HttpContextProvider httpProvider,
         ILogger<UserController> logger) : ControllerBase
     {
@@ -53,21 +55,37 @@ namespace NotesApp.Api.Controllers
             return Ok();
         }
 
+
         [HttpGet("avatar")]
+        [Consumes("multipart/form-data")]
         public async Task<ActionResult> GetAvatar()
         {
-            return Ok();
+            var userId = httpProvider.GetCurrentUserId();
+            var avatar = await avatarService.GetAsync(userId);
+            if (avatar is null)
+                return NoContent();
+
+            return File(avatar.Content, "image/" + avatar.FileExtension);
         }
 
-        [HttpPatch("avatar")]
-        public async Task<ActionResult> UpdateAvatar()
+
+        [HttpPost("avatar")]
+        [Produces("multipart/form-data")]
+        [Consumes("multipart/form-data")]
+        [FileValidationFilter(["png", "jpg", "jpeg"], 2 * 1024 * 1024)]
+        public async Task<ActionResult> UploadAvatar(IFormFile image)
         {
-            return Ok();
+            var userId = httpProvider.GetCurrentUserId();
+            var avatar = await avatarService.UploadAsync(userId, image);
+            return File(avatar.Content, "image/" + avatar.FileExtension);
         }
+
 
         [HttpDelete("avatar")]
         public async Task<ActionResult> DeleteAvatar()
         {
+            var userId = httpProvider.GetCurrentUserId();
+            await userService.DeleteAsync(userId);
             return Ok();
         }
     }
