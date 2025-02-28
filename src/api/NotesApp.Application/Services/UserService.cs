@@ -45,6 +45,8 @@ namespace NotesApp.Application.Services
             var user = await dbContext.Users.FindAsync(id) ??
                 throw new NullReferenceException("User does not exist");
 
+            //TODO delete refresh tokens
+
             dbContext.Users.Remove(user);
             await dbContext.SaveChangesAsync();
         }

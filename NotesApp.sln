@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{6C096005-0A8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesApp.Dto", "src\common\NotesApp.Dto\NotesApp.Dto.csproj", "{75A67F75-6515-4BD8-AE85-CE81FD00641B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesApp.Application.FunctionalTests", "src\api\NotesApp.Tests\NotesApp.Application.FunctionalTests\NotesApp.Application.FunctionalTests.csproj", "{2550BD66-085F-4756-9845-F7983E4227BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{75A67F75-6515-4BD8-AE85-CE81FD00641B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75A67F75-6515-4BD8-AE85-CE81FD00641B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75A67F75-6515-4BD8-AE85-CE81FD00641B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2550BD66-085F-4756-9845-F7983E4227BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2550BD66-085F-4756-9845-F7983E4227BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2550BD66-085F-4756-9845-F7983E4227BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2550BD66-085F-4756-9845-F7983E4227BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,5 +103,6 @@ Global
 		{19D9FA78-AD35-4697-8E1A-0840B0CBBE55} = {D3370B78-5355-4807-8932-FCB63473FA89}
 		{DB3C7240-75BE-40F0-94A0-7B8DE7576694} = {D3370B78-5355-4807-8932-FCB63473FA89}
 		{75A67F75-6515-4BD8-AE85-CE81FD00641B} = {20040B63-430E-49F0-A48A-F33A520AD9DA}
+		{2550BD66-085F-4756-9845-F7983E4227BF} = {D3370B78-5355-4807-8932-FCB63473FA89}
 	EndGlobalSection
 EndGlobal
