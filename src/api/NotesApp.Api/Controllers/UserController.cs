@@ -72,7 +72,7 @@ namespace NotesApp.Api.Controllers
         [HttpPost("avatar")]
         [Produces("multipart/form-data")]
         [Consumes("multipart/form-data")]
-        [FileValidationFilter(["png", "jpg", "jpeg"], 2 * 1024 * 1024)]
+        [FileValidationFilter(["png", "jpg", "jpeg"], 1 * 1024 * 1024)]
         public async Task<ActionResult> UploadAvatar(IFormFile image)
         {
             var userId = httpProvider.GetCurrentUserId();

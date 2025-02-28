@@ -13,7 +13,7 @@ namespace NotesApp.Common.Tests
         private const double ONE_SECOND_IN_MINUTE = 1 / (double)60;
         private const double THREE_SECOND_IN_DAY = 1 / (double)28800;
         
-        protected internal override WebApplicationFactory<Program> ConfigureFactory()
+        protected override WebApplicationFactory<Program> ConfigureFactory()
         {
             return factory.WithWebHostBuilder(builder =>
             {

@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -44,7 +45,7 @@ namespace NotesApp.Common.Tests
             return responseDto;
         }
 
-        protected internal virtual WebApplicationFactory<Program> ConfigureFactory()
+        protected virtual WebApplicationFactory<Program> ConfigureFactory()
         {
             return factory.WithWebHostBuilder(builder =>
             {
@@ -53,7 +54,7 @@ namespace NotesApp.Common.Tests
             });
         }
 
-        protected internal void MockDbService(IServiceCollection services)
+        protected void MockDbService(IServiceCollection services)
         {
             var dbContextDescriptor = services.SingleOrDefault(d =>
                 d.ServiceType == typeof(IDbContextOptionsConfiguration<NotesAppDbContext>));
@@ -69,6 +70,30 @@ namespace NotesApp.Common.Tests
             using var provider = services.BuildServiceProvider();
             var dbContext = provider.GetRequiredService<NotesAppDbContext>();
             InitializeDb(dbContext);
+        }
+
+        protected Stream CreateTestFileStream(long sizeInBytes)
+        {
+            var stream = new MemoryStream();
+            var random = new Random();
+            var buffer = new byte[1024];
+            while (stream.Length < sizeInBytes)
+            {
+                random.NextBytes(buffer);
+                stream.Write(buffer, 0, buffer.Length);
+            }
+            stream.Position = 0;
+            return stream;
+        }
+
+        protected MultipartFormDataContent CreateMultipartFormDataContent(
+            Stream stream, string propertyName, string fileName, string mediaTypeFormat)
+        {
+            var content = new MultipartFormDataContent();
+            var fileContent = new StreamContent(stream);
+            fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(mediaTypeFormat);
+            content.Add(fileContent, propertyName, fileName);
+            return content;
         }
 
 
