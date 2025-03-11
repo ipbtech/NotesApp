@@ -1,54 +1,79 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NotesApp.Api.Extensions;
 using NotesApp.Domain.Interfaces.Services;
+using NotesApp.Dto;
 
 namespace NotesApp.Api.Controllers
 {
     [ApiController]
-    //[Authorize] //TODO
+    [Authorize]
     [Route("api/[controller]")]
     [Produces("application/json")]
     [Consumes("application/json")]
     public class TagsController(
         ITagService tagService,
+        HttpContextProvider httpProvider,
         ILogger<TagsController> logger) : ControllerBase
     {
         
         [HttpGet]
-        //TODO rights authorize
-        public async Task<ActionResult> GetAll()
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<TagResponseDto>>> GetAll()
         {
-            return Ok();
+            var tags = await tagService.GetAllAsync();
+            return Ok(tags);
         }
+
 
         [HttpGet("current-user")]
-        public async Task<ActionResult> GetAllByCurrentUser()
+        public async Task<ActionResult<IEnumerable<TagResponseDto>>> GetAllByCurrentUser()
         {
-
-            return Ok();
+            var userId = httpProvider.GetCurrentUserId();
+            var tags = await tagService.GetAllAsync(userId);
+            return Ok(tags);
         }
+
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult> GetById([FromRoute, Required] Guid id)
+        public async Task<ActionResult<TagResponseDto>> GetById([FromRoute, Required] Guid id)
         {
-            return Ok();
+            var userId = httpProvider.GetCurrentUserId();
+            var tag = await tagService.GetByIdAsync(id, userId);
+            return Ok(tag);
         }
+
 
         [HttpPost("{tagName}")]
-        public async Task<ActionResult> Create([FromRoute, Required] string tagName)
+        public async Task<ActionResult<TagResponseDto>> Create([FromRoute, Required] string tagName)
         {
-            return Ok();
+            var userId = httpProvider.GetCurrentUserId();
+            var tag = await tagService.CreateAsync(tagName, userId);
+
+            logger.LogInformation("User {userId} created new tag {tagId}", userId, tag.Id);
+            return Ok(tag);
         }
 
+
         [HttpPut("{id:guid}/{newName}")]
-        public async Task<ActionResult> Update([FromRoute, Required] Guid id, [FromRoute, Required] string newName)
+        public async Task<ActionResult<TagResponseDto>> Update([FromRoute, Required] Guid id, [FromRoute, Required] string newName)
         {
-            return Ok();
+            var userId = httpProvider.GetCurrentUserId();
+            var tag = await tagService.UpdateAsync(id, newName, userId);
+
+            logger.LogInformation("User {userId} updated tag {tagId}", userId, tag.Id);
+            return Ok(tag);
         }
+
 
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> Delete([FromRoute, Required] Guid id)
         {
+            var userId = httpProvider.GetCurrentUserId();
+            await tagService.DeleteAsync(id, userId);
+
+            logger.LogInformation("User {userId} removed tag {tagId}", userId, id);
             return Ok();
         }
     }
