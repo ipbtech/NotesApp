@@ -13,8 +13,7 @@ namespace NotesApp.Domain.Entities
 
         public UserRole Role { get; set; }
         public Avatar? Avatar { get; set; }
-        public ICollection<Note> PersonalNotes { get; set; } = [];
-        public ICollection<Note> AllowedNotes { get; set; } = [];
+        public ICollection<Note> Notes { get; set; } = [];
         public ICollection<Tag> Tags { get; set; } = [];
         public ICollection<RefreshToken> RefreshTokens { get; set; } = [];
 

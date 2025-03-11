@@ -16,8 +16,6 @@ namespace NotesApp.Domain.Entities
         public Guid? TagId { get; set; }
         public Tag? Tag { get; set; }
 
-        public ICollection<User> AddedUsers { get; set; } = [];
-
         //IModelId impl
         public Guid Id { get; set; }
 

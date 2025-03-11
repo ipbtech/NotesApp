@@ -22,11 +22,9 @@ namespace NotesApp.DAL.Configs
                 .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany(e => e.PersonalNotes).WithOne(e => e.User)
+            builder.HasMany(e => e.Notes).WithOne(e => e.User)
                 .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasMany(e => e.AllowedNotes).WithMany(e => e.AddedUsers);
 
             builder.HasIndex(e => e.Email).IsUnique();
         }

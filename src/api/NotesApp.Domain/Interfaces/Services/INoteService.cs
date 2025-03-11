@@ -12,9 +12,6 @@ namespace NotesApp.Domain.Interfaces.Services
         public Task<Note> CreateAsync(Note noteDto);
         public Task<Note> UpdateAsync(Guid id, Note noteDto);
         public Task DeleteAsync(Guid id);
-
-        public Task ShareWithAnotherUserAsync(Guid noteId, Guid anotherUserId);
-        // TODO public Task Unshare
         public Task NotifyAsync(Guid noteId, bool onlyForMe);
     }
 }
