@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using NotesApp.Auth.Dto;
+using NotesApp.Dto;
 
 namespace NotesApp.Auth.Validation;
 
 public class RefreshTokenValidator : AbstractValidator<RefreshTokenRequestDto>
 {
-    public RefreshTokenValidator() : base()
+    public RefreshTokenValidator()
     {
         RuleFor(e => e.RefreshToken)
             .NotNull().NotEmpty().WithMessage("Can't be empty");

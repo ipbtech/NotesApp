@@ -13,5 +13,9 @@
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\..\common\NotesApp.Dto\NotesApp.Dto.csproj" />
+  </ItemGroup>
 
 </Project>

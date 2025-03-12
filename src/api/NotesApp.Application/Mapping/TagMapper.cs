@@ -1,15 +1,15 @@
-﻿using NotesApp.Application.Dtos;
-using NotesApp.Domain.Entities;
+﻿using NotesApp.Domain.Entities;
 using NotesApp.Domain.Interfaces.Mapping;
+using NotesApp.Dto;
 using Riok.Mapperly.Abstractions;
 
 namespace NotesApp.Application.Mapping
 {
     [Mapper]
-    public partial class TagMapper : IMapper<Tag, TagDto>
+    public partial class TagMapper : IMapper<Tag, TagResponseDto>
     {
-        public partial Tag MapFromDto(TagDto dto);
+        public partial Tag MapFromDto(TagResponseDto dto);
 
-        public partial TagDto MapToDto(Tag entity);
+        public partial TagResponseDto MapToDto(Tag entity);
     }
 }

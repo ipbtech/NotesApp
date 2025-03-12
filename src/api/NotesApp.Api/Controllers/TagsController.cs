@@ -1,73 +1,79 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NotesApp.Application.Dtos;
-using NotesApp.Domain.Entities;
-using NotesApp.Domain.Interfaces.Mapping;
+using NotesApp.Api.Extensions;
 using NotesApp.Domain.Interfaces.Services;
+using NotesApp.Dto;
 
 namespace NotesApp.Api.Controllers
 {
     [ApiController]
-    //[Authorize] //TODO
+    [Authorize]
     [Route("api/[controller]")]
     [Produces("application/json")]
     [Consumes("application/json")]
     public class TagsController(
         ITagService tagService,
-        IMapper<Tag, TagDto> mapper,
+        HttpContextProvider httpProvider,
         ILogger<TagsController> logger) : ControllerBase
     {
         
         [HttpGet]
-        //TODO rights authorize
-        public async Task<ActionResult<TagDto>> GetAll()
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<TagResponseDto>>> GetAll()
         {
             var tags = await tagService.GetAllAsync();
-            return Ok(mapper.MapToDto(tags));
+            return Ok(tags);
         }
+
 
         [HttpGet("current-user")]
-        public async Task<ActionResult<TagDto>> GetAllByCurrentUser()
+        public async Task<ActionResult<IEnumerable<TagResponseDto>>> GetAllByCurrentUser()
         {
-            //TODO
-            var tags = await tagService.GetAllAsync();
-            return Ok(mapper.MapToDto(tags));
+            var userId = httpProvider.GetCurrentUserId();
+            var tags = await tagService.GetAllAsync(userId);
+            return Ok(tags);
         }
+
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<TagDto>> GetById([FromRoute, Required] Guid id)
+        public async Task<ActionResult<TagResponseDto>> GetById([FromRoute, Required] Guid id)
         {
-            var tag = await tagService.GetByIdAsync(id);
-            if (tag is null)
-                return NotFound();
-
-            return Ok(mapper.MapToDto(tag));
+            var userId = httpProvider.GetCurrentUserId();
+            var tag = await tagService.GetByIdAsync(id, userId);
+            return Ok(tag);
         }
+
 
         [HttpPost("{tagName}")]
-        public async Task<ActionResult> Create([FromRoute, Required] string tagName)
+        public async Task<ActionResult<TagResponseDto>> Create([FromRoute, Required] string tagName)
         {
-            if (string.IsNullOrEmpty(tagName) || string.IsNullOrWhiteSpace(tagName))
-                return BadRequest();
+            var userId = httpProvider.GetCurrentUserId();
+            var tag = await tagService.CreateAsync(tagName, userId);
 
-            var tag = await tagService.CreateAsync(tagName);
-            return Ok(mapper.MapToDto(tag));
+            logger.LogInformation("User {userId} created new tag {tagId}", userId, tag.Id);
+            return Ok(tag);
         }
+
 
         [HttpPut("{id:guid}/{newName}")]
-        public async Task<ActionResult<TagDto>> Update([FromRoute, Required] Guid id, [FromRoute, Required] string newName)
+        public async Task<ActionResult<TagResponseDto>> Update([FromRoute, Required] Guid id, [FromRoute, Required] string newName)
         {
-            if (string.IsNullOrEmpty(newName) || string.IsNullOrWhiteSpace(newName))
-                return BadRequest();
+            var userId = httpProvider.GetCurrentUserId();
+            var tag = await tagService.UpdateAsync(id, newName, userId);
 
-            var tag = await tagService.UpdateAsync(id, newName);
-            return Ok(mapper.MapToDto(tag));
+            logger.LogInformation("User {userId} updated tag {tagId}", userId, tag.Id);
+            return Ok(tag);
         }
+
 
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> Delete([FromRoute, Required] Guid id)
         {
-            await tagService.DeleteAsync(id);
+            var userId = httpProvider.GetCurrentUserId();
+            await tagService.DeleteAsync(id, userId);
+
+            logger.LogInformation("User {userId} removed tag {tagId}", userId, id);
             return Ok();
         }
     }

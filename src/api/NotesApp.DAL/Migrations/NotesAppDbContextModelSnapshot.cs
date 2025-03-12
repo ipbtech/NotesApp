@@ -17,25 +17,10 @@ namespace NotesApp.DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.1")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("NoteUser", b =>
-                {
-                    b.Property<Guid>("AddedUsersId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("AllowedNotesId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("AddedUsersId", "AllowedNotesId");
-
-                    b.HasIndex("AllowedNotesId");
-
-                    b.ToTable("NoteUser");
-                });
 
             modelBuilder.Entity("NotesApp.Domain.Entities.Avatar", b =>
                 {
@@ -195,21 +180,6 @@ namespace NotesApp.DAL.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("NoteUser", b =>
-                {
-                    b.HasOne("NotesApp.Domain.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("AddedUsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NotesApp.Domain.Entities.Note", null)
-                        .WithMany()
-                        .HasForeignKey("AllowedNotesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("NotesApp.Domain.Entities.Avatar", b =>
                 {
                     b.HasOne("NotesApp.Domain.Entities.User", "User")
@@ -229,7 +199,7 @@ namespace NotesApp.DAL.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("NotesApp.Domain.Entities.User", "User")
-                        .WithMany("PersonalNotes")
+                        .WithMany("Notes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -270,7 +240,7 @@ namespace NotesApp.DAL.Migrations
                 {
                     b.Navigation("Avatar");
 
-                    b.Navigation("PersonalNotes");
+                    b.Navigation("Notes");
 
                     b.Navigation("RefreshTokens");
 

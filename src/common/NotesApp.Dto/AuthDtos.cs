@@ -1,4 +1,4 @@
-﻿namespace NotesApp.Auth.Dto
+﻿namespace NotesApp.Dto
 {
     public record LoginRequestDto(
         string Email,

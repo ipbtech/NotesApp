@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using NotesApp.Auth.Dto;
+using NotesApp.Dto;
 
 namespace NotesApp.Auth.Validation
 {

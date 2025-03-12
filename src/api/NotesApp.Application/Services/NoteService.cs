@@ -1,10 +1,12 @@
-﻿using NotesApp.Domain.Entities;
+﻿using NotesApp.DAL;
+using NotesApp.Domain.Entities;
 using NotesApp.Domain.Enums;
 using NotesApp.Domain.Interfaces.Services;
 
 namespace NotesApp.Application.Services
 {
-    internal class NoteService : INoteService
+    internal class NoteService(
+        NotesAppDbContext dbContext) : INoteService
     {
         public Task<Note> CreateAsync(Note noteDto)
         {

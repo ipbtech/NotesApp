@@ -7,16 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Validation\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
     <PackageReference Include="Riok.Mapperly" Version="4.1.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\common\NotesApp.Dto\NotesApp.Dto.csproj" />
     <ProjectReference Include="..\NotesApp.DAL\NotesApp.DAL.csproj" />
     <ProjectReference Include="..\NotesApp.Domain\NotesApp.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Validation\" />
   </ItemGroup>
 
 </Project>

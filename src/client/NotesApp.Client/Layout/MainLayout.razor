@@ -1,0 +1,23 @@
+﻿@using Blazor.Extensions.Storage
+@inherits LayoutComponentBase
+
+<HeadContent>
+	<RadzenTheme Theme="Standard" />
+</HeadContent>
+<RadzenComponents />
+
+<RadzenLayout>
+	<RadzenHeader Style="display:flex; align-items:center; justify-content:flex-end; margin-right: 6px">
+		<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.End" JustifyContent="JustifyContent.Right">
+			<RadzenAppearanceToggle />
+		</RadzenStack>
+	</RadzenHeader>
+	<RadzenBody>
+		<div class="rz-p-4">
+			Body
+		</div>
+	</RadzenBody>
+	<RadzenFooter>
+		Footer
+	</RadzenFooter>
+</RadzenLayout>

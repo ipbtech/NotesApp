@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using NotesApp.Domain.Entities;
 using NotesApp.Domain.Interfaces.Entities;
 
@@ -15,10 +17,14 @@ namespace NotesApp.DAL
 
 
         public NotesAppDbContext(
-            DbContextOptions<NotesAppDbContext> options) : base(options)
+            DbContextOptions<NotesAppDbContext> options,
+            IWebHostEnvironment environment) : base(options)
         {
-            if (Database.GetPendingMigrations().Any())
-                Database.Migrate();
+            if (!environment.IsEnvironment("Testing"))
+            {
+                if (Database.GetPendingMigrations().Any())
+                    Database.Migrate();
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
