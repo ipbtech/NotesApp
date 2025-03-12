@@ -1,17 +1,15 @@
-﻿using NotesApp.Domain.Entities;
-using NotesApp.Domain.Enums;
+﻿using NotesApp.Dto;
 
 namespace NotesApp.Domain.Interfaces.Services
 {
     public interface INoteService
     {
-        public Task<IEnumerable<Note>> GetAllAsync(Guid? userId = null);
-        public Task<IEnumerable<Note>> GetAllAsync(
-            IEnumerable<Guid> tagIds, NoteSortType sortType, int page = 1, Guid? userId = null);
-        public Task<Note> GetByIdAsync(Guid id);
-        public Task<Note> CreateAsync(Note noteDto);
-        public Task<Note> UpdateAsync(Guid id, Note noteDto);
-        public Task DeleteAsync(Guid id);
-        public Task NotifyAsync(Guid noteId);
+        public Task<IEnumerable<NoteResponseDto>> GetAsync(NotePaginationDto? paginationDto, Guid currentUserId);
+        public Task<NoteResponseDto> GetAsync(Guid id, Guid currentUserId);
+        public Task<NoteResponseDto> CreateAsync(NoteRequestDto noteDto, Guid currentUserId);
+        public Task<NoteResponseDto> UpdateAsync(Guid id, NoteRequestDto noteDto, Guid currentUserId);
+        public Task<NoteResponseDto> UpdateTagAsync(NoteTagUpdatingDto tagUpdatingDto, Guid currentUserId);
+        public Task DeleteAsync(Guid id, Guid currentUserId);
+        public Task NotifyAsync(NoteNotificationDto notificationDto, Guid currentUserId);
     }
 }

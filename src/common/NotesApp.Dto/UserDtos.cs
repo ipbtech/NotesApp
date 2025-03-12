@@ -4,13 +4,16 @@
         Guid Id,
         string Email,
         string UserName,
-        string Role);
+        string Role
+    );
 
     public record UserRequestDto(
-        string UserName);
+        string UserName
+    );
 
     public record UserAvatarDto(
         string FileName,
         string FileExtension,
-        byte[] Content);
+        byte[] Content
+    );
 }
