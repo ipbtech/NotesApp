@@ -37,7 +37,7 @@ namespace NotesApp.Common.Tests
             string? password = null)
         {
             var requestDto = new LoginRequestDto(
-                email ?? TestData.TestUser.Email, 
+                email ?? TestData.TestUserAdmin.Email, 
                 password ?? TestData.TestUserPassword);
 
             var response = await Client.PostAsJsonAsync("/auth/login", requestDto);
@@ -87,7 +87,10 @@ namespace NotesApp.Common.Tests
         }
 
         protected MultipartFormDataContent CreateMultipartFormDataContent(
-            Stream stream, string propertyName, string fileName, string mediaTypeFormat)
+            Stream stream, 
+            string propertyName, 
+            string fileName, 
+            string mediaTypeFormat)
         {
             var content = new MultipartFormDataContent();
             var fileContent = new StreamContent(stream);
@@ -102,8 +105,13 @@ namespace NotesApp.Common.Tests
             dbContext.Database.EnsureDeleted();
             dbContext.Database.EnsureCreated();
 
-            dbContext.Users.Add(TestData.TestUser);
+            dbContext.Users.AddRange(TestData.TestUserAdmin, TestData.TestUser);
             dbContext.SaveChanges();
+            dbContext.ChangeTracker.Clear();
+
+            dbContext.Tags.AddRange(TestData.TestTags);
+            dbContext.SaveChanges();
+            dbContext.ChangeTracker.Clear();
         }
     }
 }

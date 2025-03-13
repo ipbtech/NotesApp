@@ -15,7 +15,7 @@ namespace NotesApp.Auth.FunctionalTests
         {
             //Arrange
             var tokens = await GetTokensAsync();
-            var dto = new RefreshTokenRequestDto(TestData.TestUser.Id, tokens?.RefreshToken ?? string.Empty);
+            var dto = new RefreshTokenRequestDto(TestData.TestUserAdmin.Id, tokens?.RefreshToken ?? string.Empty);
 
             //Act
             var response = await Client.PostAsJsonAsync("/auth/refresh-token", dto);
@@ -31,7 +31,7 @@ namespace NotesApp.Auth.FunctionalTests
         {
             //Arrange
             var tokens = await GetTokensAsync();
-            var dto = new RefreshTokenRequestDto(TestData.TestUser.Id, tokens?.RefreshToken ?? string.Empty);
+            var dto = new RefreshTokenRequestDto(TestData.TestUserAdmin.Id, tokens?.RefreshToken ?? string.Empty);
             await Task.Delay(TimeSpan.FromSeconds(3)); //await when refresh token will expire
 
             //Act
@@ -45,7 +45,7 @@ namespace NotesApp.Auth.FunctionalTests
         public async Task InvalidToken()
         {
             //Arrange
-            var dto = new RefreshTokenRequestDto(TestData.TestUser.Id, "invalidToken");
+            var dto = new RefreshTokenRequestDto(TestData.TestUserAdmin.Id, "invalidToken");
 
             //Act
             var response = await Client.PostAsJsonAsync("/auth/refresh-token", dto);
@@ -58,7 +58,7 @@ namespace NotesApp.Auth.FunctionalTests
         public async Task Validation()
         {
             //Arrange
-            var dto = new RefreshTokenRequestDto(TestData.TestUser.Id, string.Empty);
+            var dto = new RefreshTokenRequestDto(TestData.TestUserAdmin.Id, string.Empty);
 
             //Act
             var response = await Client.PostAsJsonAsync("/auth/refresh-token", dto);

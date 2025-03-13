@@ -18,7 +18,7 @@ namespace NotesApp.Auth.FunctionalTests
             var tokens = await GetTokensAsync();
 
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokens?.AccessToken);
-            var logoutDto = new RefreshTokenRequestDto(TestData.TestUser.Id, tokens?.RefreshToken ?? string.Empty);
+            var logoutDto = new RefreshTokenRequestDto(TestData.TestUserAdmin.Id, tokens?.RefreshToken ?? string.Empty);
 
             //Act
             var response = await Client.PostAsJsonAsync("/auth/logout", logoutDto);
@@ -33,7 +33,7 @@ namespace NotesApp.Auth.FunctionalTests
         {
             //Arrange
             var tokens = await GetTokensAsync();
-            var logoutDto = new RefreshTokenRequestDto(TestData.TestUser.Id, tokens?.RefreshToken ?? string.Empty);
+            var logoutDto = new RefreshTokenRequestDto(TestData.TestUserAdmin.Id, tokens?.RefreshToken ?? string.Empty);
 
             //Act
             var response = await Client.PostAsJsonAsync("/auth/logout", logoutDto);

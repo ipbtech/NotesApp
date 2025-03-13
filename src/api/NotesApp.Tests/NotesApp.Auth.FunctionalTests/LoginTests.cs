@@ -24,7 +24,7 @@ namespace NotesApp.Auth.FunctionalTests
         public async Task UncorrectedPassword()
         {
             //Arrange
-            var dto = new LoginRequestDto(TestData.TestUser.Email, "qwertYY%$!");
+            var dto = new LoginRequestDto(TestData.TestUserAdmin.Email, "qwertYY%$!");
 
             //Act
             var response = await Client.PostAsJsonAsync("/auth/login", dto);

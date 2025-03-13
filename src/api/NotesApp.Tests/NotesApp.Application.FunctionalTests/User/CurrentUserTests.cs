@@ -26,7 +26,7 @@ namespace NotesApp.Application.FunctionalTests.User
             //Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.NotNull(responseData);
-            Assert.Equal(TestData.TestUser.Id, responseData.Id);
+            Assert.Equal(TestData.TestUserAdmin.Id, responseData.Id);
         }
 
 
@@ -112,7 +112,7 @@ namespace NotesApp.Application.FunctionalTests.User
         public async Task Delete_Success()
         {
             //Arrange
-            var loginDto = new LoginRequestDto(TestData.TestUser.Email, TestData.TestUserPassword);
+            var loginDto = new LoginRequestDto(TestData.TestUserAdmin.Email, TestData.TestUserPassword);
             var tokens = await GetTokensAsync();
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokens?.AccessToken);
 

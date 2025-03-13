@@ -7,15 +7,6 @@ namespace NotesApp.Application.Services
     internal class NoteService(
         NotesAppDbContext dbContext) : INoteService
     {
-        public Task<NoteResponseDto> CreateAsync(NoteRequestDto noteDto, Guid currentUserId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteAsync(Guid id, Guid currentUserId)
-        {
-            throw new NotImplementedException();
-        }
 
         public Task<IEnumerable<NoteResponseDto>> GetAsync(NotePaginationDto? paginationDto, Guid currentUserId)
         {
@@ -27,7 +18,7 @@ namespace NotesApp.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task NotifyAsync(NoteNotificationDto notificationDto, Guid currentUserId)
+        public Task<NoteResponseDto> CreateAsync(NoteRequestDto noteDto, Guid currentUserId)
         {
             throw new NotImplementedException();
         }
@@ -38,6 +29,16 @@ namespace NotesApp.Application.Services
         }
 
         public Task<NoteResponseDto> UpdateTagAsync(NoteTagUpdatingDto tagUpdatingDto, Guid currentUserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAsync(Guid id, Guid currentUserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task NotifyAsync(NoteNotificationDto notificationDto, Guid currentUserId)
         {
             throw new NotImplementedException();
         }

@@ -12,22 +12,13 @@ namespace NotesApp.Api.Controllers
     [Route("api/[controller]")]
     [Produces("application/json")]
     [Consumes("application/json")]
-    public class TagsController(
+    public class TagController(
         ITagService tagService,
         HttpContextProvider httpProvider,
-        ILogger<TagsController> logger) : ControllerBase
+        ILogger<TagController> logger) : ControllerBase
     {
-        
+
         [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<IEnumerable<TagResponseDto>>> GetAll()
-        {
-            var tags = await tagService.GetAllAsync();
-            return Ok(tags);
-        }
-
-
-        [HttpGet("current-user")]
         public async Task<ActionResult<IEnumerable<TagResponseDto>>> GetAllByCurrentUser()
         {
             var userId = httpProvider.GetCurrentUserId();
