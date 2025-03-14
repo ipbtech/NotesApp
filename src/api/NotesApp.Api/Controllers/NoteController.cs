@@ -40,6 +40,8 @@ namespace NotesApp.Api.Controllers
         {
             var userId = httpProvider.GetCurrentUserId();
             var note = await noteService.CreateAsync(noteDto, userId);
+
+            logger.LogInformation("User {userId} created note {noteId}", userId, note.Id);
             return Ok(note);
         }
 
@@ -49,6 +51,8 @@ namespace NotesApp.Api.Controllers
         {
             var userId = httpProvider.GetCurrentUserId();
             var note = await noteService.UpdateAsync(id, noteDto, userId);
+
+            logger.LogInformation("User {userId} changed note {noteId}", userId, note.Id);
             return Ok(note);
         }
 
@@ -58,6 +62,8 @@ namespace NotesApp.Api.Controllers
         {
             var userId = httpProvider.GetCurrentUserId();
             var note = await noteService.UpdateTagAsync(tagUpdatingDto, userId);
+
+            logger.LogInformation("User {userId} changed tag {tagId} by note {noteId}", userId, tagUpdatingDto.TagId, tagUpdatingDto.NoteId);
             return Ok(note);
         }
 
@@ -67,6 +73,8 @@ namespace NotesApp.Api.Controllers
         {
             var userId = httpProvider.GetCurrentUserId();
             await noteService.DeleteAsync(id, userId);
+
+            logger.LogInformation("User {userId} removed note {noteId}", userId, id);
             return Ok();
         }
     }
