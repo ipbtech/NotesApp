@@ -11,6 +11,8 @@ namespace NotesApp.DAL.Configs
             builder.Property(e => e.Id).ValueGeneratedOnAdd().IsRequired();
             builder.Property(e => e.Name).HasMaxLength(100).IsRequired();
 
+            builder.HasIndex(t => new { t.UserId, t.Name }).IsUnique();
+
             builder.HasOne(e => e.User).WithMany(e => e.Tags)
                 .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
