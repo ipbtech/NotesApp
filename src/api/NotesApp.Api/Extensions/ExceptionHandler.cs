@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace NotesApp.Api.Extensions
 {
@@ -15,6 +16,9 @@ namespace NotesApp.Api.Extensions
                     statusCode = StatusCodes.Status404NotFound; 
                     break;
                 case ArgumentException:
+                    statusCode = StatusCodes.Status400BadRequest;
+                    break;
+                case DbUpdateException:
                     statusCode = StatusCodes.Status400BadRequest;
                     break;
                 case UnauthorizedAccessException:

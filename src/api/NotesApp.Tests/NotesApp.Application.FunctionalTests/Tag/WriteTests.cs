@@ -87,10 +87,10 @@ namespace NotesApp.Application.FunctionalTests.Tag
             //Arrange
             var tokens = await GetTokensAsync(TestData.TestUser.Email, TestData.TestUserPassword);
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokens?.AccessToken);
-            var existedTag = TestData.TestTags.FirstOrDefault(t => t.UserId == TestData.TestUser.Id);
+            var existedTags = TestData.TestTags.Where(t => t.UserId == TestData.TestUser.Id).Take(2).ToList();
 
             //Act
-            var response = await Client.PutAsync($"api/tag/{existedTag?.Id}/{existedTag?.Name}", null);
+            var response = await Client.PutAsync($"api/tag/{existedTags.First().Id}/{existedTags.Last().Name}", null);
 
             //Assert
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
