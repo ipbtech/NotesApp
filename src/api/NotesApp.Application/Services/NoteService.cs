@@ -33,6 +33,17 @@ namespace NotesApp.Application.Services
 
         public async Task<NoteResponseDto> CreateAsync(NoteRequestDto noteDto, Guid currentUserId)
         {
+            if (noteDto.TagId.HasValue)
+            {
+                var tag = await dbContext.Tags.FindAsync(noteDto.TagId) ??
+                          throw new ArgumentException("Passed tag does not exist");
+
+                if (tag.UserId != currentUserId)
+                {
+                    throw new ArgumentException("Passed tag does not exist");
+                }
+            }
+
             var note = requestMapper.MapFromDto(noteDto);
             note.UserId = currentUserId;
 
