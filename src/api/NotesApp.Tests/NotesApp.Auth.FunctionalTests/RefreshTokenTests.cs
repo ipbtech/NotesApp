@@ -7,7 +7,7 @@ using NotesApp.Dto;
 namespace NotesApp.Auth.FunctionalTests
 {
     public class RefreshTokenTests(
-        WebApplicationFactory<Program> factory) : WebAppTokenTestBase(factory)
+        WebApplicationFactory<Program> factory) : WebAppShortTokenTestBase(factory)
     {
         
         [Fact]
