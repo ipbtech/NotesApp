@@ -28,10 +28,11 @@
     );
 
     public record NotePaginationDto(
-        string SearchRequest,
+        string? SearchRequest,
         Guid[] TagIds,
         NoteSortType Sorting,
-        int PageNumber
+        int PageNumber,
+        int PageCount
     );
 
     public enum NoteSortType

@@ -14,6 +14,7 @@ namespace NotesApp.Application.Services
 
         public Task<IEnumerable<NoteResponseDto>> GetAsync(NotePaginationDto? paginationDto, Guid currentUserId)
         {
+            //TODO
             throw new NotImplementedException();
         }
 
