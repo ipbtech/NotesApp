@@ -28,6 +28,11 @@ public class Note : BaseEntity, IUserSpecific
     /// </summary>
     public PrivacyStatus PrivacyStatus { get; set; }
 
+    /// <summary>
+    /// Количество лайков
+    /// </summary>
+    public int LikesCount { get; set; }
+
     /// <inheritdoc />
     public Guid UserId { get; set; }
 

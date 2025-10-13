@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NotesApp.DAL;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NotesApp.DAL.Migrations
 {
     [DbContext(typeof(NotesAppDbContext))]
-    partial class NotesAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251013200528_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +64,7 @@ namespace NotesApp.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Like", (string)null);
+                    b.ToTable("BaseLike");
 
                     b.HasDiscriminator<string>("Type").HasValue("BaseLike");
 
@@ -92,7 +95,7 @@ namespace NotesApp.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Subscription", (string)null);
+                    b.ToTable("BaseSubscription");
 
                     b.HasDiscriminator<string>("Type").HasValue("BaseSubscription");
 

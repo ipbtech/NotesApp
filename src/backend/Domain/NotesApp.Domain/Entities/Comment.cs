@@ -17,6 +17,11 @@ public class Comment : BaseEntity, IUserSpecific, INoteSpecific
 
 #nullable enable
 
+    /// <summary>
+    /// Количество лайков
+    /// </summary>
+    public int LikesCount { get; set; }
+
     /// <inheritdoc />
     public Guid UserId { get; set; }
 

@@ -2,7 +2,7 @@ name: 'notes_app'
 
 services:
   postgres_db:
-    container_name: pgsql_notesDb
+    container_name: postgres_db
     image: postgres:latest
     environment:
       POSTGRES_USER: postgres
@@ -10,3 +10,15 @@ services:
       POSTGRES_DB: NotesAppDb
     ports:
       - '5433:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - notesapp_network
+
+
+volumes:
+  postgres_data:
+
+networks:
+  notesapp_network:
+    driver: bridge

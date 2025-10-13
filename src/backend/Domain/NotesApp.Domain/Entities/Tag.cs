@@ -25,4 +25,9 @@ public class Tag : BaseEntity
     /// Заметки, где используется этот тэг
     /// </summary>
     public ICollection<Note> Notes { get; set; } = [];
+
+    /// <summary>
+    /// Подписки на данный тэг
+    /// </summary>
+    public ICollection<TagSubscription> Subscriptions { get; set; } = [];
 }

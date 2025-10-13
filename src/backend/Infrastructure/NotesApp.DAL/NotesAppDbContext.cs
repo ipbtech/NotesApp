@@ -1,55 +1,34 @@
-﻿using System.Reflection;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using NotesApp.Domain.Entities;
-using NotesApp.Domain.Interfaces.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using NotesApp.Domain.Entities.Base;
+using System.Reflection;
 
-namespace NotesApp.DAL
+namespace NotesApp.DAL;
+internal class NotesAppDbContext(DbContextOptions<NotesAppDbContext> options) : DbContext(options)
 {
-    public class NotesAppDbContext : DbContext
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        public DbSet<User> Users { get; set; }
-        public DbSet<Avatar> Avatars { get; set; }
-        public DbSet<RefreshToken> RefreshTokens { get; set; }
-        public DbSet<Note> Notes { get; set; }
-        public DbSet<Tag> Tags { get; set; }
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+    }
 
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        var entries = ChangeTracker.Entries<BaseEntity>().ToList();
 
-        public NotesAppDbContext(
-            DbContextOptions<NotesAppDbContext> options,
-            IWebHostEnvironment environment) : base(options)
+        foreach (var entry in entries)
         {
-            if (!environment.IsEnvironment("Testing"))
+            if (entry.State == EntityState.Added)
             {
-                if (Database.GetPendingMigrations().Any())
-                    Database.Migrate();
+                entry.Property(e => e.CreatedAtUtc).CurrentValue = DateTime.UtcNow;
+                entry.Property(e => e.UpdatedAtUtc).CurrentValue = DateTime.UtcNow;
+            }
+
+            if (entry.State == EntityState.Modified)
+            {
+                entry.Property(e => e.UpdatedAtUtc).CurrentValue = DateTime.UtcNow;
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-            //TODO indexes
-        }
-
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            var entries = ChangeTracker.Entries<IAuditable>().ToList();
-            foreach (var entry in entries)
-            {
-                if (entry.State == EntityState.Added)
-                {
-                    entry.Property(e => e.CreatedAtUtc).CurrentValue = DateTime.UtcNow;
-                    entry.Property(e => e.UpdatedAtUtc).CurrentValue = DateTime.UtcNow;
-                }
-
-                if (entry.State == EntityState.Modified)
-                {
-                    entry.Property(e => e.UpdatedAtUtc).CurrentValue = DateTime.UtcNow;
-                }
-            }
-            return base.SaveChangesAsync(cancellationToken);
-        }
+        return base.SaveChangesAsync(cancellationToken);
     }
 }

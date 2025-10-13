@@ -33,11 +33,6 @@ public class User : BaseEntity
 #nullable enable
 
     /// <summary>
-    /// Флаг активности пользователя
-    /// </summary>
-    public bool IsActive { get; set; } = true;
-
-    /// <summary>
     /// Роль пользователя
     /// </summary>
     public UserRole Role { get; set; }
@@ -56,6 +51,11 @@ public class User : BaseEntity
     /// Подписки на пользователей и тэги
     /// </summary>
     public ICollection<BaseSubscription> Subscriptions { get; set; } = [];
+
+    /// <summary>
+    /// Подписки на данного пользователя
+    /// </summary>
+    public ICollection<UserSubscription> FollowerSubscriptions { get; set; } = [];
 
     /// <summary>
     /// Комментарии пользователя

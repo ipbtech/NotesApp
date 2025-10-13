@@ -1,7 +1,4 @@
-using FluentValidation.AspNetCore;
 using NotesApp.Api.Extensions;
-using NotesApp.Application;
-using NotesApp.Auth;
 using NotesApp.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,12 +16,12 @@ builder.Services.Configure<RouteOptions>(opt => {
 builder.Configuration.AddUserSecrets(typeof(Program).Assembly);
 
 // application services
-builder.Services.AddAuthServices(builder.Configuration);
+//builder.Services.AddAuthServices(builder.Configuration);
 builder.Services.AddDataAccessServices(builder.Configuration);
-builder.Services.AddApplicationServices();
+//builder.Services.AddApplicationServices();
 
 // auto fluent-validation
-builder.Services.AddFluentValidationAutoValidation();
+//builder.Services.AddFluentValidationAutoValidation();
 
 // global exception handler
 builder.Services.AddProblemDetails();
@@ -43,6 +40,8 @@ app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())
 {
+    await app.Services.EnsureDatabaseMigratedAsync();
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }
@@ -53,6 +52,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
 
 public partial class Program { } // needs for integration tests
