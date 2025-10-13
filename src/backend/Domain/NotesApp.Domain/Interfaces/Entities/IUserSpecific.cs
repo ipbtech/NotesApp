@@ -1,7 +1,19 @@
-﻿namespace NotesApp.Domain.Interfaces.Entities
+﻿using NotesApp.Domain.Entities;
+
+namespace NotesApp.Domain.Interfaces.Entities;
+
+/// <summary>
+/// Интерфейс указания принадлежности к пользователю
+/// </summary>
+public interface IUserSpecific
 {
-    public interface IUserSpecific
-    {
-        public Guid UserId { get; set; }
-    }
+    /// <summary>
+    /// Идентификатор пользователя
+    /// </summary>
+    public Guid UserId { get; set; }
+
+    /// <summary>
+    /// Пользователь
+    /// </summary>
+    public User? User { get; set; }
 }

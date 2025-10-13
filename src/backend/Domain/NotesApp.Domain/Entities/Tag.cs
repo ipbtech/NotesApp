@@ -1,23 +1,28 @@
-﻿using NotesApp.Domain.Interfaces.Entities;
+﻿using NotesApp.Domain.Entities.Base;
 
-namespace NotesApp.Domain.Entities
+namespace NotesApp.Domain.Entities;
+
+/// <summary>
+/// Тэг заметки
+/// </summary>
+public class Tag : BaseEntity
 {
-    public class Tag : IEntityId, IAuditable, IUserSpecific
-    {
 #nullable disable
-        public string Name { get; set; }
+
+    /// <summary>
+    /// Имя тэга
+    /// </summary>
+    public string Name { get; set; }
+
 #nullable enable
 
-        //IUserSpecific impl
-        public Guid UserId { get; set; }
-        public User? User { get; set; }
-        public ICollection<Note> Notes { get; set; } = [];
+    /// <summary>
+    /// Счетчик использования
+    /// </summary>
+    public int UsageCount { get; set; }
 
-        //IModelId impl
-        public Guid Id { get; set; }
-
-        //IAuditable impl
-        public DateTimeOffset CreatedAtUtc { get; set; }
-        public DateTimeOffset UpdatedAtUtc { get; set; }
-    }
+    /// <summary>
+    /// Заметки, где используется этот тэг
+    /// </summary>
+    public ICollection<Note> Notes { get; set; } = [];
 }

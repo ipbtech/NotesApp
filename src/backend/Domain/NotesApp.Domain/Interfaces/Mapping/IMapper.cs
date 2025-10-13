@@ -1,29 +1,29 @@
-﻿using NotesApp.Domain.Interfaces.Entities;
+﻿//using NotesApp.Domain.Interfaces.Entities;
 
-namespace NotesApp.Domain.Interfaces.Mapping
-{
-    public interface IMapper<TEntity, TDto> 
-        where TEntity : class, IEntityId, IAuditable
-        where TDto : class
-    {
-        public TDto MapToDto(TEntity entity);
-        public TEntity MapFromDto(TDto dto);
-        public void UpdateEntity(TDto dto, TEntity entity);
+//namespace NotesApp.Domain.Interfaces.Mapping
+//{
+//    public interface IMapper<TEntity, TDto> 
+//        where TEntity : class, IEntityId, IAuditable
+//        where TDto : class
+//    {
+//        public TDto MapToDto(TEntity entity);
+//        public TEntity MapFromDto(TDto dto);
+//        public void UpdateEntity(TDto dto, TEntity entity);
 
-        public IEnumerable<TDto> MapToDto(IEnumerable<TEntity> entityCollection)
-        {
-            foreach (var entity in entityCollection)
-            {
-                yield return MapToDto(entity);
-            }
-        }
+//        public IEnumerable<TDto> MapToDto(IEnumerable<TEntity> entityCollection)
+//        {
+//            foreach (var entity in entityCollection)
+//            {
+//                yield return MapToDto(entity);
+//            }
+//        }
 
-        public IEnumerable<TEntity> MapFromDto(IEnumerable<TDto> dtoCollection)
-        {
-            foreach(var dto in dtoCollection)
-            {
-                yield return MapFromDto(dto);
-            }
-        }
-    }
-}
+//        public IEnumerable<TEntity> MapFromDto(IEnumerable<TDto> dtoCollection)
+//        {
+//            foreach(var dto in dtoCollection)
+//            {
+//                yield return MapFromDto(dto);
+//            }
+//        }
+//    }
+//}

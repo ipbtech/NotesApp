@@ -1,8 +1,17 @@
-﻿namespace NotesApp.Domain.Enums
+﻿namespace NotesApp.Domain.Enums;
+
+/// <summary>
+/// Роли пользователей
+/// </summary>
+public enum UserRole
 {
-    public enum UserRole
-    {
-        User = 1,
-        Admin = 2,
-    }
+    /// <summary>
+    /// Обычный пользователь
+    /// </summary>
+    User = 1,
+
+    /// <summary>
+    /// Администратор
+    /// </summary>
+    Admin = 2,
 }

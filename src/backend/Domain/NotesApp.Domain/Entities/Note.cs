@@ -1,26 +1,56 @@
-﻿using NotesApp.Domain.Interfaces.Entities;
+﻿using NotesApp.Domain.Entities.Base;
+using NotesApp.Domain.Enums;
+using NotesApp.Domain.Interfaces.Entities;
 
-namespace NotesApp.Domain.Entities
+namespace NotesApp.Domain.Entities;
+
+/// <summary>
+/// Заметка
+/// </summary>
+public class Note : BaseEntity, IUserSpecific
 {
-    public class Note : IEntityId, IAuditable, IUserSpecific
-    {
 #nullable disable
-        public string Name { get; set; }
-        public string Description { get; set; }
+
+    /// <summary>
+    /// Заголовок заметки
+    /// </summary>
+    public string Title { get; set; }
+    
+    /// <summary>
+    /// Содержание заметки
+    /// </summary>
+    public string Content { get; set; }
+
 #nullable enable
 
-        //IUserSpecific impl
-        public Guid UserId { get; set; }
-        public User? User { get; set; }
+    /// <summary>
+    /// Статус публичности заметки
+    /// </summary>
+    public PrivacyStatus PrivacyStatus { get; set; }
 
-        public Guid? TagId { get; set; }
-        public Tag? Tag { get; set; }
+    /// <inheritdoc />
+    public Guid UserId { get; set; }
 
-        //IModelId impl
-        public Guid Id { get; set; }
+    /// <inheritdoc />
+    public User? User { get; set; }
 
-        //IAuditable impl
-        public DateTimeOffset CreatedAtUtc { get; set; }
-        public DateTimeOffset UpdatedAtUtc { get; set; }
-    }
+    /// <summary>
+    /// Используемые тэги
+    /// </summary>
+    public ICollection<Tag> Tags { get; set; } = [];
+
+    /// <summary>
+    /// Комментарии
+    /// </summary>
+    public ICollection<Comment> Comments { get; set; } = [];
+
+    /// <summary>
+    /// Лайки
+    /// </summary>
+    public ICollection<NoteLike> Likes { get; set; } = [];
+
+    /// <summary>
+    /// Изображения-вложения к заметке
+    /// </summary>
+    public ICollection<NoteImage> Images { get; set; } = [];
 }
