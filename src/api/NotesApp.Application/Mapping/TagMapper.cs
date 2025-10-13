@@ -11,5 +11,7 @@ namespace NotesApp.Application.Mapping
         public partial Tag MapFromDto(TagResponseDto dto);
 
         public partial TagResponseDto MapToDto(Tag entity);
+
+        public partial void UpdateEntity(TagResponseDto dto, Tag entity);
     }
 }

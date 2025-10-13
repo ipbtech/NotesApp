@@ -6,7 +6,7 @@ using NotesApp.Common.Tests;
 namespace NotesApp.Auth.FunctionalTests
 {
     public class AccessTokenTests(
-        WebApplicationFactory<Program> factory) : WebAppTokenTestBase(factory)
+        WebApplicationFactory<Program> factory) : WebAppShortTokenTestBase(factory)
     {
         
         [Fact]

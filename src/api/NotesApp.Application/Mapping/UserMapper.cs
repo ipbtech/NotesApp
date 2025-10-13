@@ -11,5 +11,7 @@ namespace NotesApp.Application.Mapping
         public partial User MapFromDto(UserResponseDto dto);
 
         public partial UserResponseDto MapToDto(User entity);
+
+        public partial void UpdateEntity(UserResponseDto dto, User entity);
     }
 }

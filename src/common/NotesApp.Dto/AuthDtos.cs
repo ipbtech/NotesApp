@@ -2,25 +2,31 @@
 {
     public record LoginRequestDto(
         string Email,
-        string Password);
+        string Password
+    );
 
     public record SignUpRequestDto(
         string Email,
         string Password,
-        string ConfirmPassword) : LoginRequestDto(Email, Password);
+        string ConfirmPassword
+    );
 
     public record LoginResponseDto(
         string AccessToken,
-        string RefreshToken);
+        string RefreshToken
+    );
 
     public record RefreshTokenRequestDto(
         Guid UserId,
-        string RefreshToken);
+        string RefreshToken
+    );
 
     public record RefreshTokenResponseDto(
-        string AccessToken);
+        string AccessToken
+    );
 
     public record ChangePasswordDto(
         string OldPassword,
-        string NewPassword);
+        string NewPassword
+    );
 }

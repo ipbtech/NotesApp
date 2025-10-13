@@ -8,6 +8,7 @@ namespace NotesApp.Domain.Interfaces.Mapping
     {
         public TDto MapToDto(TEntity entity);
         public TEntity MapFromDto(TDto dto);
+        public void UpdateEntity(TDto dto, TEntity entity);
 
         public IEnumerable<TDto> MapToDto(IEnumerable<TEntity> entityCollection)
         {

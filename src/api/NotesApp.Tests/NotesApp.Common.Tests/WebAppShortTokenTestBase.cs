@@ -7,7 +7,7 @@ using NotesApp.Auth.Options;
 namespace NotesApp.Common.Tests
 {
     // ReSharper disable InconsistentNaming
-    public class WebAppTokenTestBase(
+    public class WebAppShortTokenTestBase(
         WebApplicationFactory<Program> factory) : WebAppTestBase(factory)
     {
         private const double ONE_SECOND_IN_MINUTE = 1 / (double)60;

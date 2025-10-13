@@ -14,6 +14,8 @@ namespace NotesApp.DAL.Configs
             builder.Property(e => e.PasswordHash).IsRequired();
             builder.Property(e => e.Role).HasColumnType("text").IsRequired();
 
+            builder.HasIndex(e => e.Email).IsUnique();
+
             builder.HasOne(e => e.Avatar).WithOne(e => e.User)
                 .HasForeignKey<Avatar>(e => e.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
@@ -25,8 +27,6 @@ namespace NotesApp.DAL.Configs
             builder.HasMany(e => e.Notes).WithOne(e => e.User)
                 .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasIndex(e => e.Email).IsUnique();
         }
     }
 }

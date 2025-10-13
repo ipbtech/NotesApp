@@ -32,7 +32,7 @@ namespace NotesApp.Auth.FunctionalTests
         {
             //Arrange
             var dto = new SignUpRequestDto(
-                TestData.TestUser.Email, 
+                TestData.TestUserAdmin.Email, 
                 "Aab#$77l", 
                 "Aab#$77l");
 
@@ -49,7 +49,7 @@ namespace NotesApp.Auth.FunctionalTests
         {
             //Arrange
             var dto = new SignUpRequestDto(
-                TestData.TestUser.Email,
+                TestData.TestUserAdmin.Email,
                 "Aab",
                 "Aab");
 

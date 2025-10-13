@@ -3,5 +3,6 @@
     public record TagResponseDto(
         Guid Id,
         Guid UserId,
-        string Name);
+        string Name
+    );
 }

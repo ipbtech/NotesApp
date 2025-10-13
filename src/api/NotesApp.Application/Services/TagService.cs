@@ -12,17 +12,10 @@ namespace NotesApp.Application.Services
         IMapper<Tag, TagResponseDto> mapper) : ITagService
     {
         
-        public async Task<IEnumerable<TagResponseDto>> GetAllAsync(Guid? currentUserId = null)
+        public async Task<IEnumerable<TagResponseDto>> GetAllAsync(Guid currentUserId)
         {
-            List<Tag> tags;
-            if (currentUserId.HasValue)
-            {
-                tags = await dbContext.Tags.Where(t => t.UserId == currentUserId).ToListAsync();
-            }
-            else
-            {
-                tags = await dbContext.Tags.ToListAsync();
-            }
+            var tags = await dbContext.Tags
+                .Where(t => t.UserId == currentUserId).ToListAsync();
 
             return mapper.MapToDto(tags);
         }
